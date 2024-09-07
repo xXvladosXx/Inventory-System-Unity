@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e5d7caa7504147bc545439e11e58d3, type: 3}
   m_Name: Game Settings
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   ItemDatabase: {fileID: 11400000, guid: 4a5181feab2da5545811aa318aee39f9, type: 2}
   Items:
   - Name: Sword
@@ -19,12 +28,18 @@ MonoBehaviour:
     MaxInStack: 1
     OneValueProperties:
     - Name: Damage
+      ResetableOnImport: 1
       Value: 10
     - Name: Health
+      ResetableOnImport: 1
       Value: 10
+    DoubleValueProperties: []
   - Name: Helmet
     IsStackable: 0
     MaxInStack: 1
-    OneValueProperties:
+    OneValueProperties: []
+    DoubleValueProperties:
     - Name: Health
-      Value: 5
+      ResetableOnImport: 1
+      Value1: 5
+      Value2: 20

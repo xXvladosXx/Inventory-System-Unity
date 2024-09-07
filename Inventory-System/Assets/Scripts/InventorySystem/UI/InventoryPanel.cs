@@ -59,7 +59,7 @@ namespace InventorySystem.UI
 
             _currentDragIndex = index;
             
-            CreateDragItem(slot);
+            CreateDragItem(slot.Icon, slot.Amount);
             OnStartDrag?.Invoke(index);
         }
 
@@ -101,9 +101,9 @@ namespace InventorySystem.UI
             _slots[index].SetData(icon, amount);
         }
 
-        private void CreateDragItem(InventorySlot slot)
+        public void CreateDragItem(Sprite itemIcon, int amount)
         {
-            _mouseFollower.SetData(slot.Icon, slot.Amount);
+            _mouseFollower.SetData(itemIcon, amount);
             _mouseFollower.Toggle(true);
         }
 
@@ -111,6 +111,14 @@ namespace InventorySystem.UI
         {
             _mouseFollower.Toggle(false);
             _currentDragIndex = -1;
+        }
+
+        public void ResetAllItems()
+        {
+            foreach (var slot in _slots)
+            {
+                slot.ResetData();
+            }
         }
     }
 }

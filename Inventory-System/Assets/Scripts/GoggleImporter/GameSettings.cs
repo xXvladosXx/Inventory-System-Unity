@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using GoggleImporter.ItemParser;
+using GoggleImporter.ItemParser.Parsers.PropertySetters;
 using InventorySystem;
 using InventorySystem.Items.Properties;
 using InventorySystem.Slots;
+using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 using PropertyName = InventorySystem.Items.Properties.PropertyName;
@@ -10,11 +13,13 @@ using PropertyName = InventorySystem.Items.Properties.PropertyName;
 namespace GoggleImporter
 {
     [CreateAssetMenu(fileName = "Game Settings", menuName = "Game Settings")]
-    public class GameSettings : ScriptableObject
+    public class GameSettings : SerializedScriptableObject
     {
         public ItemDatabase ItemDatabase;
         public List<ItemSettings> Items;
         
+        private readonly PropertySetter _propertyParserManager = new PropertySetter();
+
 #if UNITY_EDITOR
         public void UpdateItems()
         {
@@ -49,19 +54,24 @@ namespace GoggleImporter
             item.IsStackable = itemSettings.IsStackable;
             item.MaxInStack = itemSettings.MaxInStack;
 
-            item.Properties = new Dictionary<PropertyName, Property>();
+            item.Properties ??= new Dictionary<PropertyName, Property>();
 
-            foreach (var property in itemSettings.OneValueProperties)
+            var propertiesToRemove = new List<PropertyName>();
+
+            foreach (var property in item.Properties)
             {
-                if (Enum.TryParse(property.Name, out PropertyName propertyName))
+                if (property.Value.ResetableOnImport)
                 {
-                    item.Properties.Add(propertyName, new OneValueProperty() { Name = property.Name, Value = property.Value });
-                }
-                else
-                {
-                    Debug.LogWarning($"Property name '{property.Name}' does not match any PropertyName enum value.");
+                    propertiesToRemove.Add(property.Key);
                 }
             }
+           
+            foreach (var propertyName in propertiesToRemove)
+            {
+                item.Properties.Remove(propertyName);
+            }
+
+            ItemSettingsHelper.SetProperties(_propertyParserManager, itemSettings, item);
         }
 #endif
     }

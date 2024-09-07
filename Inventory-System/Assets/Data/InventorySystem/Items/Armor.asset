@@ -23,12 +23,19 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <Properties>k__BackingField
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[InventorySystem.Items.Properties.Property,
-        Assembly-CSharp]], mscorlib
+      Data: 0|System.Collections.Generic.Dictionary`2[[InventorySystem.Items.Properties.PropertyName,
+        Assembly-CSharp],[InventorySystem.Items.Properties.Property, Assembly-CSharp]],
+        mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
-        mscorlib]], mscorlib
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[InventorySystem.Items.Properties.PropertyName,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -42,5 +49,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   <ID>k__BackingField: 3
-  <IsStackable>k__BackingField: 0
-  <MaxInStack>k__BackingField: 0
+  <Name>k__BackingField: 
+  <IsStackable>k__BackingField: 1
+  <MaxInStack>k__BackingField: 11
+  <Icon>k__BackingField: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}

@@ -4,5 +4,6 @@
     {
         Damage,
         Health,
+        SoundOnUse
     }
 }

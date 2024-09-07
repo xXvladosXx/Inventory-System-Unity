@@ -11,7 +11,7 @@ namespace InventorySystem.Slots
         string Name { get; set; }
         bool IsStackable { get; }
         public int MaxInStack { get; }
-        public Sprite Icon { get; set; }
+        //public Sprite Icon { get; set; }
         public Dictionary<PropertyName, Property> Properties { get; }
     }
 }

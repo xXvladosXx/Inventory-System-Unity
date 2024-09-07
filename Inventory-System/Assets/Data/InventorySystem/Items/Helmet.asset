@@ -50,13 +50,19 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 2|InventorySystem.Items.Properties.OneValueProperty, Assembly-CSharp
+      Data: 2|InventorySystem.Items.Properties.DoubleValueProperty, Assembly-CSharp
     - Name: Name
       Entry: 1
       Data: Health
-    - Name: Value
+    - Name: ResetableOnImport
+      Entry: 5
+      Data: true
+    - Name: Value1
       Entry: 4
       Data: 5
+    - Name: Value2
+      Entry: 4
+      Data: 20
     - Name: 
       Entry: 8
       Data: 

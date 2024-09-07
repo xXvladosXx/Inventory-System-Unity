@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Sheets.v4;
@@ -13,7 +13,6 @@ namespace GoggleImporter
     {
         private readonly SheetsService _sheetsService;
         private readonly string _sheetID;
-        private readonly List<string> _headers = new List<string>();
 
         public GoogleSheetsImporter(string credentialsPath, string sheetID)
         {
@@ -52,30 +51,28 @@ namespace GoggleImporter
             if (response != null && response.Values != null)
             {
                 var tableArray = response.Values;
-                
-                var firstRow = tableArray[0];
-                foreach (var cell in firstRow)
-                {
-                    _headers.Add(cell.ToString());
-                }
-                
                 var rowsCount = tableArray.Count;
-                for (int i = 1; i < rowsCount; i++)
-                {
-                    var row = tableArray[i];
-                    var rowLength = row.Count;
-                    googleSheetParser.ParseSheet(_headers, row);
 
-                    for (int j = 0; j < rowLength; j++)
+                for (int i = 0; i < rowsCount; i += 2)
+                {
+                    var headerRow = tableArray[i];
+                    var headers = headerRow.Select(cell => cell.ToString()).ToList();
+
+                    if (i + 1 < rowsCount)
                     {
-                        var cell = row[j];
-                        var header = _headers[j];
-                        
-                        
-                        Debug.Log($"Header: {header}, Cell: {cell}");
+                        var dataRow = tableArray[i + 1];
+
+                        googleSheetParser.ParseSheet(headers, dataRow);
+
+                        for (int j = 0; j < dataRow.Count; j++)
+                        {
+                            var cell = dataRow[j];
+                            var header = headers[j];
+                            Debug.Log($"Header: {header}, Cell: {cell}");
+                        }
                     }
                 }
-                
+
                 Debug.Log("Sheet downloaded and parsed successfully");
             }
             else

@@ -27,7 +27,7 @@ namespace InventorySystem.UI
             ResetData();
         }
 
-        private void ResetData()
+        public void ResetData()
         {
             _icon.gameObject.SetActive(false);
             _empty = true;

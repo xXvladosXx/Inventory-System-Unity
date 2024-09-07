@@ -41,28 +41,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 7
-      Data: 2|InventorySystem.Items.Properties.OneValueProperty, Assembly-CSharp
-    - Name: Name
-      Entry: 1
-      Data: Damage
-    - Name: Value
-      Entry: 4
-      Data: 10
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
@@ -71,13 +50,64 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 3|InventorySystem.Items.Properties.OneValueProperty, Assembly-CSharp
+      Data: 2|InventorySystem.Items.Properties.OneValueProperty, Assembly-CSharp
     - Name: Name
       Entry: 1
       Data: Health
+    - Name: ResetableOnImport
+      Entry: 5
+      Data: true
     - Name: Value
       Entry: 4
       Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 3|InventorySystem.Items.Properties.OneValueProperty, Assembly-CSharp
+    - Name: Name
+      Entry: 1
+      Data: Damage
+    - Name: ResetableOnImport
+      Entry: 5
+      Data: true
+    - Name: Value
+      Entry: 4
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: 4|InventorySystem.Items.Properties.SoundProperty, Assembly-CSharp
+    - Name: Name
+      Entry: 6
+      Data: 
+    - Name: ResetableOnImport
+      Entry: 5
+      Data: false
+    - Name: Sound
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 

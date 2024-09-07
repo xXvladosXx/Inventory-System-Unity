@@ -1,5 +1,6 @@
 ﻿using System;
-using UnityEngine;
+using GoggleImporter.ItemParser.Parsers;
+using GoggleImporter.ItemParser.Parsers.PropertySetters;
 
 namespace InventorySystem.Items.Properties
 {
@@ -7,5 +8,6 @@ namespace InventorySystem.Items.Properties
     public class OneValueProperty : Property
     {
         public float Value;
+        public override IPropertySetter PropertySetter { get; } = new OneValuePropertyParser();
     }
 }
