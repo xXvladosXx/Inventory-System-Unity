@@ -55,7 +55,7 @@ MonoBehaviour:
       Entry: 1
       Data: Health
     - Name: Value
-      Entry: 3
+      Entry: 4
       Data: 5
     - Name: 
       Entry: 8
@@ -73,3 +73,4 @@ MonoBehaviour:
   <Name>k__BackingField: Helmet
   <IsStackable>k__BackingField: 0
   <MaxInStack>k__BackingField: 1
+  <Icon>k__BackingField: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
