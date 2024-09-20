@@ -5,9 +5,9 @@ using GoggleImporter.ItemParser.Parsers.PropertySetters;
 namespace InventorySystem.Items.Properties
 {
     [Serializable]
-    public class OneValueProperty : Property
+    public class ConstantStatProperty : Property
     {
         public float Value;
-        public override IPropertySetter PropertySetter { get; } = new OneValuePropertyParser();
+        public override IPropertySetter PropertySetter { get; } = new ConstantStatPropertyParser();
     }
 }

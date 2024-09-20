@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using GoggleImporter.ItemParser.Parsers.PropertySetters;
 using InventorySystem.Items.Properties;
 using InventorySystem.Slots;
 
 namespace GoggleImporter.ItemParser.Parsers
 {
-    public class OneValuePropertyParser : BaseParser, IPropertySetter
+    public class ConstantStatPropertyParser : BaseParser, IPropertySetter
     {
         public override string PropertyType => "OneValueProperty";
 
@@ -21,11 +22,13 @@ namespace GoggleImporter.ItemParser.Parsers
                     var propertyName = properties[j];
                     if (int.TryParse(properties[j + 1], out var propertyValue))
                     {
-                        itemSettings.OneValueProperties.Add(new OneValueProperty
+                        var oneValueProperty = new ConstantStatProperty
                         {
                             Name = propertyName,
                             Value = propertyValue
-                        });
+                        };
+                    
+                        itemSettings.OneValueProperties.Add(oneValueProperty);
                     }
                 }
             }
@@ -33,10 +36,17 @@ namespace GoggleImporter.ItemParser.Parsers
 
         public void Set(Property property, Item item)
         {
-            if (property is OneValueProperty oneValueProperty)
+            if (property is ConstantStatProperty oneValueProperty)
             {
                 oneValueProperty.ResetableOnImport = true;
-                item.Properties.Add((PropertyName)Enum.Parse(typeof(PropertyName), property.Name), oneValueProperty);
+
+                if (!item.Properties.TryGetValue((PropertyName)Enum.Parse(typeof(PropertyName), property.Name), out var propertiesList))
+                {
+                    propertiesList = new List<Property>();
+                    item.Properties[(PropertyName)Enum.Parse(typeof(PropertyName), property.Name)] = propertiesList;
+                }
+
+                propertiesList.Add(oneValueProperty);
             }
         }
     }

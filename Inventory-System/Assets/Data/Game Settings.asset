@@ -26,20 +26,11 @@ MonoBehaviour:
   - Name: Sword
     IsStackable: 0
     MaxInStack: 1
-    OneValueProperties:
-    - Name: Damage
-      ResetableOnImport: 1
-      Value: 10
-    - Name: Health
-      ResetableOnImport: 1
-      Value: 10
+    OneValueProperties: []
     DoubleValueProperties: []
   - Name: Helmet
     IsStackable: 0
     MaxInStack: 1
     OneValueProperties: []
-    DoubleValueProperties:
-    - Name: Health
-      ResetableOnImport: 1
-      Value1: 5
-      Value2: 20
+    DoubleValueProperties: []
+  PropertyNames: []

@@ -14,8 +14,8 @@ namespace GoggleImporter.ItemParser
         public string Name;
         public bool IsStackable;
         public int MaxInStack;
-        public List<OneValueProperty> OneValueProperties = new List<OneValueProperty>();
-        public List<DoubleValueProperty> DoubleValueProperties = new List<DoubleValueProperty>();
+        public List<ConstantStatProperty> OneValueProperties = new List<ConstantStatProperty>();
+        public List<ConstantStatRangeProperty> DoubleValueProperties = new List<ConstantStatRangeProperty>();
     }
 
     public static class ItemSettingsHelper

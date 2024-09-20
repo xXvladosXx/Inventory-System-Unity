@@ -1,4 +1,4 @@
-﻿namespace InventorySystem.Items.Properties
+namespace InventorySystem.Items.Properties
 {
     public enum PropertyName 
     {

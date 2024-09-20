@@ -12,8 +12,8 @@ namespace InventorySystem
     [CreateAssetMenu(fileName = "New Database Item", menuName = "Inventory System/Database Item")]
     public class ItemDatabase : SerializedScriptableObject
     {
-        [field: SerializeField] public Dictionary<int, IItem> IDsItemsDictionary { get; private set; } = new Dictionary<int, IItem>();
-        [field: SerializeField] public Dictionary<string, IItem> NameItemsDictionary { get; private set; } = new Dictionary<string, IItem>();
+        [field: SerializeField] public Dictionary<int, Item> IDsItemsDictionary { get; private set; } = new Dictionary<int, Item>();
+        [field: SerializeField] public Dictionary<string, Item> NameItemsDictionary { get; private set; } = new Dictionary<string, Item>();
 
         private int _nextAvailableID = 1;
 
@@ -67,7 +67,7 @@ namespace InventorySystem
         
         public Item FindItemByName(string itemName)
         {
-            if (NameItemsDictionary.TryGetValue(itemName, out IItem item))
+            if (NameItemsDictionary.TryGetValue(itemName, out Item item))
             {
                 return item as Item;
             }

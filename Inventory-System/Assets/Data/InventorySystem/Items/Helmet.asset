@@ -24,8 +24,8 @@ MonoBehaviour:
     - Name: <Properties>k__BackingField
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[InventorySystem.Items.Properties.PropertyName,
-        Assembly-CSharp],[InventorySystem.Items.Properties.Property, Assembly-CSharp]],
-        mscorlib
+        Assembly-CSharp],[System.Collections.Generic.List`1[[InventorySystem.Items.Properties.Property,
+        Assembly-CSharp]], mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
       Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[InventorySystem.Items.Properties.PropertyName,
@@ -50,7 +50,14 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: 2|InventorySystem.Items.Properties.DoubleValueProperty, Assembly-CSharp
+      Data: 2|System.Collections.Generic.List`1[[InventorySystem.Items.Properties.Property,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 3|InventorySystem.Items.Properties.DoubleValueProperty, Assembly-CSharp
     - Name: Name
       Entry: 1
       Data: Health
@@ -63,6 +70,12 @@ MonoBehaviour:
     - Name: Value2
       Entry: 4
       Data: 20
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 

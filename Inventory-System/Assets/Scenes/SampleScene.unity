@@ -258,14 +258,16 @@ MonoBehaviour:
   _inventoryPanel: {fileID: 301295399}
   _itemContainer: {fileID: 147919702}
   InitialItems:
-  - Amount: 1
+  - Amount: 12
     Item: {fileID: 11400000, guid: df3c98997d05a4f4baae05eacde57fd6, type: 2}
   - Amount: 0
-    Item: {fileID: 0}
+    Item: {fileID: 11400000, guid: 9ec0672d5cf821542951d1c5c1c7d12c, type: 2}
   - Amount: 0
     Item: {fileID: 0}
   - Amount: 10
     Item: {fileID: 11400000, guid: c9f8cdc1e7b49fe47bda0f87b8998c2a, type: 2}
+  _item: {fileID: 11400000, guid: c9f8cdc1e7b49fe47bda0f87b8998c2a, type: 2}
+  _item2: {fileID: 11400000, guid: df3c98997d05a4f4baae05eacde57fd6, type: 2}
 --- !u!4 &147919701
 Transform:
   m_ObjectHideFlags: 0

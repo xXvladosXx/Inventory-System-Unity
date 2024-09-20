@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GoggleImporter.ItemParser.Parsers.PropertySetters;
 using InventorySystem.Items.Properties;
 using InventorySystem.Slots;
@@ -23,7 +24,7 @@ namespace GoggleImporter.ItemParser.Parsers
                     if (int.TryParse(properties[j + 1], out var firstValue) && 
                         int.TryParse(properties[j + 2], out var secondValue))
                     {
-                        itemSettings.DoubleValueProperties.Add(new DoubleValueProperty
+                        itemSettings.DoubleValueProperties.Add(new ConstantStatRangeProperty
                         {
                             Name = propertyName,
                             Value1 = firstValue,
@@ -40,10 +41,17 @@ namespace GoggleImporter.ItemParser.Parsers
 
         public void Set(Property property, Item item)
         {
-            if (property is DoubleValueProperty doubleValueProperty)
+            if (property is ConstantStatRangeProperty doubleValueProperty)
             {
                 doubleValueProperty.ResetableOnImport = true;
-                item.Properties.Add((PropertyName)Enum.Parse(typeof(PropertyName), property.Name), doubleValueProperty);
+
+                if (!item.Properties.TryGetValue((PropertyName)Enum.Parse(typeof(PropertyName), property.Name), out var propertiesList))
+                {
+                    propertiesList = new List<Property>();
+                    item.Properties[(PropertyName)Enum.Parse(typeof(PropertyName), property.Name)] = propertiesList;
+                }
+
+                propertiesList.Add(doubleValueProperty);
             }
         }
     }

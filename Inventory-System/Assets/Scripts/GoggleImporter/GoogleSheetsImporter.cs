@@ -31,7 +31,7 @@ namespace GoggleImporter
             });
         }
         
-        public async Task DownloadAndParseSheetAsync(string sheetName, IGoogleSheetParser googleSheetParser)
+        public async Task DownloadAndParseSheetAsync(string sheetName, IGoogleSheetParser googleSheetParser, int rowIncrement = 1)
         {
             var range = $"{sheetName}!A1:Z";
             var request = _sheetsService.Spreadsheets.Values.Get(_sheetID, range);
@@ -53,7 +53,7 @@ namespace GoggleImporter
                 var tableArray = response.Values;
                 var rowsCount = tableArray.Count;
 
-                for (int i = 0; i < rowsCount; i += 2)
+                for (int i = 0; i < rowsCount; i += rowIncrement)
                 {
                     var headerRow = tableArray[i];
                     var headers = headerRow.Select(cell => cell.ToString()).ToList();

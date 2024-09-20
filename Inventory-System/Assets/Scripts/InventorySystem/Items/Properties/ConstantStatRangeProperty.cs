@@ -5,7 +5,7 @@ using GoggleImporter.ItemParser.Parsers.PropertySetters;
 namespace InventorySystem.Items.Properties
 {
     [Serializable]
-    public class DoubleValueProperty : Property
+    public class ConstantStatRangeProperty : Property
     {
         public float Value1;
         public float Value2;

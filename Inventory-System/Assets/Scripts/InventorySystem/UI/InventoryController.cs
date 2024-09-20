@@ -62,12 +62,6 @@ namespace InventorySystem.UI
                 return;
             
             _inventoryPanel.CreateDragItem(inventoryItem.Item.Icon, inventoryItem.Amount);
-
-            inventoryItem.Item.TryGetProperty<OneValueProperty>(PropertyName.Damage, out var damage);
-            if (damage != null)
-            {
-                Debug.Log($"Damage: {damage.Value}");
-            }
         }
 
         private void OnSwapRequested(int index1, int index2)

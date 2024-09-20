@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using GoggleImporter.ItemParser;
 using GoggleImporter.ItemParser.Parsers.PropertySetters;
+using GoggleImporter.PropertyParser;
 using InventorySystem;
 using InventorySystem.Items.Properties;
 using InventorySystem.Slots;
@@ -17,6 +18,7 @@ namespace GoggleImporter
     {
         public ItemDatabase ItemDatabase;
         public List<ItemSettings> Items;
+        public List<string> PropertyNames = new List<string>();
         
         private readonly PropertySetter _propertyParserManager = new PropertySetter();
 
@@ -54,24 +56,48 @@ namespace GoggleImporter
             item.IsStackable = itemSettings.IsStackable;
             item.MaxInStack = itemSettings.MaxInStack;
 
-            item.Properties ??= new Dictionary<PropertyName, Property>();
+            item.Properties ??= new Dictionary<PropertyName, List<Property>>();
 
-            var propertiesToRemove = new List<PropertyName>();
+            var propertiesToRemove = new List<KeyValuePair<PropertyName, Property>>();
 
-            foreach (var property in item.Properties)
+            foreach (var kvp in item.Properties)
             {
-                if (property.Value.ResetableOnImport)
+                var propertyName = kvp.Key;
+                var propertyList = kvp.Value;
+
+                foreach (var property in propertyList)
                 {
-                    propertiesToRemove.Add(property.Key);
+                    if (property.ResetableOnImport)
+                    {
+                        propertiesToRemove.Add(new KeyValuePair<PropertyName, Property>(propertyName, property));
+                    }
                 }
             }
-           
-            foreach (var propertyName in propertiesToRemove)
+
+            foreach (var kvp in propertiesToRemove)
             {
-                item.Properties.Remove(propertyName);
+                var propertyName = kvp.Key;
+                var property = kvp.Value;
+
+                if (item.Properties.TryGetValue(propertyName, out var propertyList))
+                {
+                    propertyList.Remove(property);
+
+                    if (propertyList.Count == 0)
+                    {
+                        item.Properties.Remove(propertyName);
+                    }
+                }
             }
 
             ItemSettingsHelper.SetProperties(_propertyParserManager, itemSettings, item);
+        }
+        
+        public void UpdatePropertyNames()
+        {
+            EnumGenerator.GenerateEnum(PropertyNames.ToArray());
+            
+            PropertyNames.Clear();
         }
 #endif
     }
