@@ -63,13 +63,6 @@ namespace GoggleImporter
                         var dataRow = tableArray[i + 1];
 
                         googleSheetParser.ParseSheet(headers, dataRow);
-
-                        for (int j = 0; j < dataRow.Count; j++)
-                        {
-                            var cell = dataRow[j];
-                            var header = headers[j];
-                            Debug.Log($"Header: {header}, Cell: {cell}");
-                        }
                     }
                 }
 

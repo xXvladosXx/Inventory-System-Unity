@@ -1,5 +1,5 @@
 ﻿using System;
-using GoggleImporter.ItemParser.Parsers.PropertySetters;
+using GoggleImporter.ItemParser.PropertySetters;
 using UnityEngine;
 
 namespace InventorySystem.Items.Properties

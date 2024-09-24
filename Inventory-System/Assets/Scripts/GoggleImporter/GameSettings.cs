@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using GoggleImporter.ItemParser;
-using GoggleImporter.ItemParser.Parsers.PropertySetters;
+using GoggleImporter.ItemParser.PropertySetters;
 using GoggleImporter.PropertyParser;
 using InventorySystem;
+using InventorySystem.Items;
 using InventorySystem.Items.Properties;
-using InventorySystem.Slots;
+using InventorySystem.Items.Types;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
-using PropertyName = InventorySystem.Items.Properties.PropertyName;
 
 namespace GoggleImporter
 {
@@ -20,7 +20,7 @@ namespace GoggleImporter
         public List<ItemSettings> Items;
         public List<string> PropertyNames = new List<string>();
         
-        private readonly PropertySetter _propertyParserManager = new PropertySetter();
+        private readonly PropertySettersCollector _propertyParserManager = new PropertySettersCollector();
 
 #if UNITY_EDITOR
         public void UpdateItems()
@@ -56,9 +56,9 @@ namespace GoggleImporter
             item.IsStackable = itemSettings.IsStackable;
             item.MaxInStack = itemSettings.MaxInStack;
 
-            item.Properties ??= new Dictionary<PropertyName, List<Property>>();
+            item.Properties ??= new Dictionary<PropertyType, List<Property>>();
 
-            var propertiesToRemove = new List<KeyValuePair<PropertyName, Property>>();
+            var propertiesToRemove = new List<KeyValuePair<PropertyType, Property>>();
 
             foreach (var kvp in item.Properties)
             {
@@ -69,7 +69,7 @@ namespace GoggleImporter
                 {
                     if (property.ResetableOnImport)
                     {
-                        propertiesToRemove.Add(new KeyValuePair<PropertyName, Property>(propertyName, property));
+                        propertiesToRemove.Add(new KeyValuePair<PropertyType, Property>(propertyName, property));
                     }
                 }
             }
@@ -90,7 +90,7 @@ namespace GoggleImporter
                 }
             }
 
-            ItemSettingsHelper.SetProperties(_propertyParserManager, itemSettings, item);
+            _propertyParserManager.SetProperties(itemSettings, item);
         }
         
         public void UpdatePropertyNames()

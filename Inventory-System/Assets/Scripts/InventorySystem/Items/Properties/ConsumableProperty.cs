@@ -1,4 +1,4 @@
-﻿using GoggleImporter.ItemParser.Parsers.PropertySetters;
+﻿using GoggleImporter.ItemParser.PropertySetters;
 
 namespace InventorySystem.Items.Properties
 {

@@ -51,7 +51,8 @@ namespace GoggleImporter.ItemParser
                 if (string.IsNullOrEmpty(header) || string.IsNullOrEmpty(token))
                     continue;
 
-                if (_parsers.TryGetValue(header, out var parser))
+                var parser = GetParserForHeader(header);
+                if (parser != null)
                 {
                     parser.Parse(token, _currentItemSettings);
                 }
@@ -63,5 +64,8 @@ namespace GoggleImporter.ItemParser
 
             _gameSettings.Items.Add(_currentItemSettings);
         }
+
+        private BaseParser GetParserForHeader(string header) => 
+            _parsers.FirstOrDefault(p => header.StartsWith(p.Key)).Value;
     }
 }

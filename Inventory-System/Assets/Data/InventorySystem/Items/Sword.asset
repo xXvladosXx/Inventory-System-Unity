@@ -23,12 +23,12 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <Properties>k__BackingField
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[InventorySystem.Items.Properties.PropertyName,
+      Data: 0|System.Collections.Generic.Dictionary`2[[InventorySystem.Items.Properties.TypeName,
         Assembly-CSharp],[System.Collections.Generic.List`1[[InventorySystem.Items.Properties.Property,
         Assembly-CSharp]], mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[InventorySystem.Items.Properties.PropertyName,
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[InventorySystem.Items.Properties.TypeName,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -54,27 +54,21 @@ MonoBehaviour:
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
       Data: 3|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
     - Name: Name
-      Entry: 6
-      Data: 
+      Entry: 1
+      Data: Damage
     - Name: ResetableOnImport
       Entry: 5
       Data: true
     - Name: Value
       Entry: 4
-      Data: 0
-    - Name: Stat
-      Entry: 3
-      Data: 0
+      Data: 10
     - Name: 
       Entry: 8
-      Data: 
-    - Name: 
-      Entry: 6
       Data: 
     - Name: 
       Entry: 13

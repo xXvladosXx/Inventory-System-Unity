@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using InventorySystem.Items.Properties;
+using InventorySystem.Items.Types;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using PropertyName = InventorySystem.Items.Properties.PropertyName;
 
-namespace InventorySystem.Slots
+namespace InventorySystem.Items
 {
     [CreateAssetMenu(fileName = "New Item", menuName = "Inventory System/Item")]
     public class Item : SerializedScriptableObject
@@ -18,17 +17,18 @@ namespace InventorySystem.Slots
         
         [JsonIgnore]
         [field: SerializeField] public Sprite Icon { get; set; }
-        [field: SerializeField] public Dictionary<PropertyName, List<Property>> Properties { get; set; } = new Dictionary<PropertyName, List<Property>>();
+        [field: SerializeField] public Dictionary<PropertyType, List<Property>> Properties { get; set; } = new Dictionary<PropertyType, List<Property>>();
         
-        public void TryGetProperty<T>(PropertyName propertyName, out T property) where T : class
+        public bool TryGetProperty<T>(PropertyType propertyType, out T property) where T : class
         {
-            if (Properties.TryGetValue(propertyName, out var prop))
+            if (Properties.TryGetValue(propertyType, out var prop))
             {
                 property = prop as T;
-                return;
+                return true;
             }
 
             property = null;
+            return false;
         }
     }
 }

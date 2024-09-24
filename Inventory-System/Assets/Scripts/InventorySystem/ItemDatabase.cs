@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using InventorySystem.Slots;
+using InventorySystem.Items;
 using Sirenix.OdinInspector;
 #if UNITY_EDITOR
 using UnityEditor;

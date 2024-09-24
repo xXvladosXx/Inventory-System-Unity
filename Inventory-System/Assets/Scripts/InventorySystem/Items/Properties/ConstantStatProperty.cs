@@ -1,6 +1,7 @@
 ﻿using System;
-using GoggleImporter.ItemParser.Parsers;
-using GoggleImporter.ItemParser.Parsers.PropertySetters;
+using GoggleImporter.ItemParser.Parsers.Stats;
+using GoggleImporter.ItemParser.PropertySetters;
+using InventorySystem.Items.Stats;
 
 namespace InventorySystem.Items.Properties
 {
@@ -8,6 +9,7 @@ namespace InventorySystem.Items.Properties
     public class ConstantStatProperty : Property
     {
         public float Value;
+        public StatType StatType;
         public override IPropertySetter PropertySetter { get; } = new ConstantStatPropertyParser();
     }
 }

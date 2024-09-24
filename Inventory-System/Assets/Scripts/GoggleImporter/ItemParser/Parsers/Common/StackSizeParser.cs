@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GoggleImporter.ItemParser.Parsers
+namespace GoggleImporter.ItemParser.Parsers.Common
 {
     public class StackSizeParser : BaseParser
     {

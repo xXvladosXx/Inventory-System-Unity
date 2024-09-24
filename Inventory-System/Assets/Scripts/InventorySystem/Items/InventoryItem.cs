@@ -1,5 +1,4 @@
 ﻿using System;
-using InventorySystem.Slots;
 
 namespace InventorySystem.Items
 {
