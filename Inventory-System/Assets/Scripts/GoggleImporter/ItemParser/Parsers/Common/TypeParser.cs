@@ -10,7 +10,7 @@ namespace GoggleImporter.ItemParser.Parsers.Common
 
         public override void Parse(string token, ItemSettings itemSettings)
         {
-            if (Enum.TryParse<PropertyType>(token, out var type))
+            if (Enum.TryParse<ActionType>(token, out var type))
             {
                 itemSettings.SetCurrentType(type);
             }

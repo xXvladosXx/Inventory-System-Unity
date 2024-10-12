@@ -5,7 +5,7 @@ namespace GoggleImporter.ItemParser.Types
 {
     public interface IPropertyWithType
     {
-        PropertyType PropertyType { get; }
+        ActionType ActionType { get; }
         Property Property { get; }
     }
 }

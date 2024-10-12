@@ -49,7 +49,7 @@ namespace GoggleImporter.ItemParser.PropertySetters
 
                             if (typedProperty.Property is { } property)
                             {
-                                SetProperty(typedProperty.PropertyType, property, item);
+                                SetProperty(typedProperty.ActionType, property, item);
                             }
                         }
                     }
@@ -57,7 +57,7 @@ namespace GoggleImporter.ItemParser.PropertySetters
             }
         }
 
-        private void SetProperty(PropertyType type, Property property, Item item)
+        private void SetProperty(ActionType type, Property property, Item item)
         {
             var propertyType = property.GetType().Name;
 

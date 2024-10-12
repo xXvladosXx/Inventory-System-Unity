@@ -1,8 +1,8 @@
-namespace InventorySystem.Items.Types
+﻿namespace InventorySystem.Items.Types
 {
-    public enum PropertyType 
+    public enum PropertyType
     {
-        Consumable,
-        Equippable
+        ConstantStatProperty,
+        EquippableProperty
     }
 }

@@ -17,14 +17,14 @@ namespace GoggleImporter.ItemParser
         public bool IsStackable;
         public int MaxInStack;
         
-        public PropertyType? CurrentType { get; private set; }
+        public ActionType? CurrentType { get; private set; }
 
         public List<TypeToConstantStat> ConstantStats = new List<TypeToConstantStat>();
-        public List<TypeToEquipType> EquipTypes = new List<TypeToEquipType>();
+        public List<TypeToEquip> EquipTypes = new List<TypeToEquip>();
 
-        public void SetCurrentType(PropertyType propertyType)
+        public void SetCurrentType(ActionType actionType)
         {
-            CurrentType = propertyType;
+            CurrentType = actionType;
         }
     }
 }

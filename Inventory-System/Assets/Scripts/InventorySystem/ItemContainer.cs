@@ -25,7 +25,7 @@ namespace InventorySystem
             {
                 foreach (var item in _items)
                 {
-                    if (item.Item.TryGetProperty<ConstantStatProperty>(PropertyType.Consumable, out var constantStatProperties))
+                    if (item.Item.TryGetProperty<ConstantStatProperty>(ActionType.ConsumableAction, out var constantStatProperties))
                     {
                         foreach (var constantStatProperty in constantStatProperties)
                         {

@@ -7,6 +7,6 @@ namespace GoggleImporter.ItemParser.PropertySetters
     public interface IPropertySetter
     {
         string PropertyType { get; }  
-        void Set(PropertyType propertyType, Property property, Item item);
+        void Set(ActionType actionType, Property property, Item item);
     }
 }

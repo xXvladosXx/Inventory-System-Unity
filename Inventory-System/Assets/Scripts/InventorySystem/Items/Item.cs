@@ -15,16 +15,14 @@ namespace InventorySystem.Items
         [field: SerializeField, ReadOnly] public string Name { get; set; }
         [field: SerializeField] public bool IsStackable { get; set; }
         [field: SerializeField] public int MaxInStack { get; set; }
-        
-        [JsonIgnore]
         [field: SerializeField] public Sprite Icon { get; set; }
-        [field: SerializeField] public Dictionary<PropertyType, List<Property>> Properties { get; set; } = new Dictionary<PropertyType, List<Property>>();
+        [field: SerializeField] public Dictionary<ActionType, List<Property>> Properties { get; set; } = new Dictionary<ActionType, List<Property>>();
         
-        public bool TryGetProperty<TProperty>(PropertyType propertyType, out List<TProperty> properties) where TProperty : Property
+        public bool TryGetProperty<TProperty>(ActionType actionType, out List<TProperty> properties) where TProperty : Property
         {
             properties = null;
 
-            if (Properties.TryGetValue(propertyType, out var props))
+            if (Properties.TryGetValue(actionType, out var props))
             {
                 properties = props.OfType<TProperty>().ToList();
                 return properties.Count > 0;

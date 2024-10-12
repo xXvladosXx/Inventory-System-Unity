@@ -18,7 +18,7 @@ namespace InventorySystem.UI.Common
             if (inventoryItem.Item == null)
                 return false;
 
-            if (inventoryItem.Item.TryGetProperty(PropertyType.Equippable,
+            if (inventoryItem.Item.TryGetProperty(ActionType.EquippableAction,
                     out List<EquippableProperty> equippableProperties))
             {
                 foreach (var equippableProperty in equippableProperties)

@@ -56,9 +56,9 @@ namespace GoggleImporter
             item.IsStackable = itemSettings.IsStackable;
             item.MaxInStack = itemSettings.MaxInStack;
 
-            item.Properties ??= new Dictionary<PropertyType, List<Property>>();
+            item.Properties ??= new Dictionary<ActionType, List<Property>>();
 
-            var propertiesToRemove = new List<KeyValuePair<PropertyType, Property>>();
+            var propertiesToRemove = new List<KeyValuePair<ActionType, Property>>();
 
             foreach (var kvp in item.Properties)
             {
@@ -69,7 +69,7 @@ namespace GoggleImporter
                 {
                     if (property.ResetableOnImport)
                     {
-                        propertiesToRemove.Add(new KeyValuePair<PropertyType, Property>(propertyName, property));
+                        propertiesToRemove.Add(new KeyValuePair<ActionType, Property>(propertyName, property));
                     }
                 }
             }

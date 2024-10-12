@@ -27,23 +27,23 @@ MonoBehaviour:
     IsStackable: 0
     MaxInStack: 1
     ConstantStats:
-    - <PropertyType>k__BackingField: 0
+    - <ActionType>k__BackingField: 0
       <ConstantStat>k__BackingField:
         ResetableOnImport: 1
         Value: 10
         StatType: 0
-    - <PropertyType>k__BackingField: 1
+    - <ActionType>k__BackingField: 1
       <ConstantStat>k__BackingField:
         ResetableOnImport: 1
         Value: 15
         StatType: 1
     EquipTypes:
-    - <PropertyType>k__BackingField: 1
+    - <ActionType>k__BackingField: 1
   - Name: Helmet
     IsStackable: 0
     MaxInStack: 1
     ConstantStats:
-    - <PropertyType>k__BackingField: 0
+    - <ActionType>k__BackingField: 0
       <ConstantStat>k__BackingField:
         ResetableOnImport: 1
         Value: 10
