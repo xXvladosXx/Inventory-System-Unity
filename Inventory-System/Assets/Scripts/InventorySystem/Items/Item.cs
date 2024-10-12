@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using InventorySystem.Items.Properties;
 using InventorySystem.Items.Types;
 using Newtonsoft.Json;
@@ -19,15 +20,16 @@ namespace InventorySystem.Items
         [field: SerializeField] public Sprite Icon { get; set; }
         [field: SerializeField] public Dictionary<PropertyType, List<Property>> Properties { get; set; } = new Dictionary<PropertyType, List<Property>>();
         
-        public bool TryGetProperty<T>(PropertyType propertyType, out T property) where T : class
+        public bool TryGetProperty<TProperty>(PropertyType propertyType, out List<TProperty> properties) where TProperty : Property
         {
-            if (Properties.TryGetValue(propertyType, out var prop))
+            properties = null;
+
+            if (Properties.TryGetValue(propertyType, out var props))
             {
-                property = prop as T;
-                return true;
+                properties = props.OfType<TProperty>().ToList();
+                return properties.Count > 0;
             }
 
-            property = null;
             return false;
         }
     }

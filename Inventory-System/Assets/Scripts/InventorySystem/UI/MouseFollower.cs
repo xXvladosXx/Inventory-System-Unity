@@ -6,14 +6,19 @@ namespace InventorySystem.UI
     public class MouseFollower : MonoBehaviour
     {
         [SerializeField] private Canvas _canvas;
-        [SerializeField] private InventorySlot _slot;
+        [SerializeField] private ContainerSlot _slot;
         
-        public Sprite Icon => _slot.Icon;
-        public int Amount => _slot.Amount;
+        public BaseItemContainerPanel InventoryPanel { get; private set; }
+        public int StartIndex { get; private set; } = -1;
+        public ItemContainer ItemContainer => InventoryPanel.ItemContainer;
 
-        public void SetData(Sprite icon, int amount)
+        public void SetData(BaseItemContainerPanel panel, Sprite itemIcon, 
+            int itemAmount, int index)
         {
-            _slot.SetData(icon, amount);
+            InventoryPanel = panel;
+            StartIndex = index;
+            
+            _slot.SetData(itemIcon, itemAmount);
         }
 
         private void Update()

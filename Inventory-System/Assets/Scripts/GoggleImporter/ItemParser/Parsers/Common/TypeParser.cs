@@ -12,7 +12,7 @@ namespace GoggleImporter.ItemParser.Parsers.Common
         {
             if (Enum.TryParse<PropertyType>(token, out var type))
             {
-                itemSettings.CurrentType = type;
+                itemSettings.SetCurrentType(type);
             }
             else
             {

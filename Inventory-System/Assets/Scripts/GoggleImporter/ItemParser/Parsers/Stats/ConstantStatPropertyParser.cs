@@ -48,8 +48,6 @@ namespace GoggleImporter.ItemParser.Parsers.Stats
                 {
                     Debug.LogError("No type set for property. Item " + itemSettings.Name);
                 }
-            
-                itemSettings.CurrentType = null;
             }
             else
             {
