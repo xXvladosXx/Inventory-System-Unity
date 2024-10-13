@@ -11,7 +11,8 @@ namespace GoggleImporter.ItemParser.Parsers.Equipment
 {
     public class EquippablePropertyParser : BaseParser, IPropertySetter
     {
-        public override string PropertyType => InventorySystem.Items.Types.PropertyType.EquippableProperty.ToString();
+        public override Property Property => new EquippableProperty();
+        public override string PropertyType => Property.PropertyType.ToString();
 
         public override void Parse(string token, ItemSettings itemSettings)
         {
@@ -33,7 +34,7 @@ namespace GoggleImporter.ItemParser.Parsers.Equipment
 
             if (itemSettings.CurrentType.HasValue)
             {
-                itemSettings.EquipTypes.Add(new TypeToEquip
+                itemSettings.EquipProperties.Add(new ActionTypeToEquipProperty
                 {
                     ActionType = itemSettings.CurrentType.Value,
                     EquipProperty = property
@@ -42,20 +43,6 @@ namespace GoggleImporter.ItemParser.Parsers.Equipment
             else
             {
                 Debug.LogError("No type set for EquippableProperty. Item " + itemSettings.Name);
-            }
-        }
-
-        public void Set(ActionType actionType, Property property, Item item)
-        {
-            if (property is EquippableProperty equippableProperty)
-            {
-                if (!item.Properties.TryGetValue(actionType, out var propertiesList))
-                {
-                    propertiesList = new List<Property>();
-                    item.Properties[actionType] = propertiesList;
-                }
-
-                propertiesList.Add(equippableProperty);
             }
         }
     }

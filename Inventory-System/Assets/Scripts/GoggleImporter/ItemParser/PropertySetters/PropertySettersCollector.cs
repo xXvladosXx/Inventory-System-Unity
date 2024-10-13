@@ -37,7 +37,7 @@ namespace GoggleImporter.ItemParser.PropertySetters
                 {
                     var elementType = field.FieldType.GetGenericArguments()[0];
 
-                    if (typeof(IPropertyWithType).IsAssignableFrom(elementType))
+                    if (typeof(IActionTypeToProperty).IsAssignableFrom(elementType))
                     {
                         var list = (IEnumerable)field.GetValue(itemSettings);
 
@@ -45,7 +45,7 @@ namespace GoggleImporter.ItemParser.PropertySetters
 
                         foreach (var propertyWithType in list)
                         {
-                            var typedProperty = (IPropertyWithType)propertyWithType;
+                            var typedProperty = (IActionTypeToProperty)propertyWithType;
 
                             if (typedProperty.Property is { } property)
                             {
@@ -63,12 +63,24 @@ namespace GoggleImporter.ItemParser.PropertySetters
 
             if (_parsers.TryGetValue(propertyType, out var parser))
             {
-                parser.Set(type, property, item);
+                AddProperty(type, property, item);
             }
             else
             {
                 Debug.LogWarning($"No parser found for property type {propertyType}");
             }
+        }
+        
+        void AddProperty<TProperty>(ActionType actionType, TProperty property, Item item)
+            where TProperty : Property
+        {
+            if (!item.Properties.TryGetValue(actionType, out var propertiesList))
+            {
+                propertiesList = new List<Property>();
+                item.Properties[actionType] = propertiesList;
+            }
+
+            propertiesList.Add(property);
         }
     }
 }

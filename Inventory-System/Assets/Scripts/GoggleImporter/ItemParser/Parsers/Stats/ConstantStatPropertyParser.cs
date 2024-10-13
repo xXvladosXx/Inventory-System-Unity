@@ -12,7 +12,8 @@ namespace GoggleImporter.ItemParser.Parsers.Stats
 {
     public class ConstantStatPropertyParser : BaseParser, IPropertySetter
     {
-        public override string PropertyType => InventorySystem.Items.Types.PropertyType.ConstantStatProperty.ToString();
+        public override Property Property => new ConstantStatProperty();
+        public override string PropertyType => Property.PropertyType.ToString();
 
         public override void Parse(string token, ItemSettings itemSettings)
         {
@@ -38,7 +39,7 @@ namespace GoggleImporter.ItemParser.Parsers.Stats
 
                 if (itemSettings.CurrentType.HasValue)
                 {
-                    itemSettings.ConstantStats.Add(new TypeToConstantStat
+                    itemSettings.ConstantStatsProperties.Add(new ActionTypeToConstantStatProperty
                     {
                         ActionType = itemSettings.CurrentType.Value,
                         ConstantStat = property
@@ -52,22 +53,6 @@ namespace GoggleImporter.ItemParser.Parsers.Stats
             else
             {
                 Debug.LogError($"Invalid value for property: {token}");
-            }
-        }
-
-        public void Set(ActionType actionType, Property property, Item item)
-        {
-            if (property is ConstantStatProperty constantStatProperty)
-            {
-                constantStatProperty.ResetableOnImport = true;
-
-                if (!item.Properties.TryGetValue(actionType, out var propertiesList))
-                {
-                    propertiesList = new List<Property>();
-                    item.Properties[actionType] = propertiesList;
-                }
-
-                propertiesList.Add(constantStatProperty);
             }
         }
     }

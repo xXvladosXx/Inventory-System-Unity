@@ -3,7 +3,7 @@ using InventorySystem.Items.Types;
 
 namespace GoggleImporter.ItemParser.Types
 {
-    public interface IPropertyWithType
+    public interface IActionTypeToProperty
     {
         ActionType ActionType { get; }
         Property Property { get; }

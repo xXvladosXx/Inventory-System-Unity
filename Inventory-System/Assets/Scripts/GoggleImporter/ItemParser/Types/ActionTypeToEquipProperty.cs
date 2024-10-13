@@ -6,7 +6,7 @@ using UnityEngine;
 namespace GoggleImporter.ItemParser.Types
 {
     [Serializable]
-    public class TypeToEquip : IPropertyWithType
+    public class ActionTypeToEquipProperty : IActionTypeToProperty
     {
         [field: SerializeField] public ActionType ActionType { get; set; }
         [field: SerializeField] public EquippableProperty EquipProperty { get; set; }

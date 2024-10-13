@@ -19,8 +19,8 @@ namespace GoggleImporter.ItemParser
         
         public ActionType? CurrentType { get; private set; }
 
-        public List<TypeToConstantStat> ConstantStats = new List<TypeToConstantStat>();
-        public List<TypeToEquip> EquipTypes = new List<TypeToEquip>();
+        public List<ActionTypeToConstantStatProperty> ConstantStatsProperties = new List<ActionTypeToConstantStatProperty>();
+        public List<ActionTypeToEquipProperty> EquipProperties = new List<ActionTypeToEquipProperty>();
 
         public void SetCurrentType(ActionType actionType)
         {

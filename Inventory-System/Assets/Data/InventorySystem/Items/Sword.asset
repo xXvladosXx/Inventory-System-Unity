@@ -54,7 +54,7 @@ MonoBehaviour:
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 4
     - Name: 
       Entry: 7
       Data: 3|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
@@ -72,7 +72,37 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 4|InventorySystem.Items.Properties.EquippableProperty, Assembly-CSharp
+      Data: 4|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
+    - Name: ResetableOnImport
+      Entry: 5
+      Data: true
+    - Name: Value
+      Entry: 4
+      Data: 10
+    - Name: StatType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 5|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
+    - Name: ResetableOnImport
+      Entry: 5
+      Data: true
+    - Name: Value
+      Entry: 4
+      Data: 15
+    - Name: StatType
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|InventorySystem.Items.Properties.EquippableProperty, Assembly-CSharp
     - Name: ResetableOnImport
       Entry: 5
       Data: true
@@ -99,14 +129,14 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: 5|System.Collections.Generic.List`1[[InventorySystem.Items.Properties.Property,
+      Data: 7|System.Collections.Generic.List`1[[InventorySystem.Items.Properties.Property,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 6|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
+      Data: 8|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
     - Name: ResetableOnImport
       Entry: 5
       Data: true

@@ -8,6 +8,5 @@ namespace InventorySystem.Items.Properties
     public class SoundProperty : Property
     {
         public AudioClip Sound;
-        public override IPropertySetter PropertySetter { get; }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace GoggleImporter.ItemParser.Types
 {
     [Serializable]
-    public class TypeToConstantStat : IPropertyWithType
+    public class ActionTypeToConstantStatProperty : IActionTypeToProperty
     {
         [field: SerializeField] public ActionType ActionType { get;  set; }
         [field: SerializeField] public ConstantStatProperty ConstantStat { get;  set; }
