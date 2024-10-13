@@ -101,13 +101,25 @@ public enum ActionType
 }
 ```
 
-### Step 3: Create Property Parser
-Create a property parser that inherits from `BaseParser` and implements `IPropertySetter`. This allows values to be set from Google Sheets and not just from the editor:
+### Step 3: Create Property Class
+Create a property class that inherits from `Property` and set the property type with all neccesary data:
+
+```csharp
+public class EquippableProperty : Property
+{
+    public override PropertyType PropertyType => PropertyType.EquippableProperty;
+    public EquipType EquipType;
+}
+```
+
+### Step 4: Create Property Parser
+Create a property parser that inherits from `BaseParser`. This allows values to be set from Google Sheets and not just from the editor:
 
 ```csharp
 public class EquippablePropertyParser : BaseParser, IPropertySetter
 {
-    public override string PropertyType => InventorySystem.Items.Types.PropertyType.EquippableProperty.ToString();
+    public override Property Property => new EquippableProperty();
+    public override string PropertyType => Property.PropertyType.ToString();
 
     public override void Parse(string token, ItemSettings itemSettings)
     {
@@ -124,12 +136,12 @@ public class EquippablePropertyParser : BaseParser, IPropertySetter
 
         var property = new EquippableProperty
         {
-            EquipType = (EquipType)Enum.Parse(typeof(EquipType), propertyValue)
+            EquipType = (EquipType) Enum.Parse(typeof(EquipType), propertyValue)
         };
 
         if (itemSettings.CurrentType.HasValue)
         {
-            itemSettings.EquipTypes.Add(new TypeToEquip
+            itemSettings.EquipProperties.Add(new ActionTypeToEquipProperty
             {
                 ActionType = itemSettings.CurrentType.Value,
                 EquipProperty = property
@@ -140,40 +152,15 @@ public class EquippablePropertyParser : BaseParser, IPropertySetter
             Debug.LogError("No type set for EquippableProperty. Item " + itemSettings.Name);
         }
     }
-
-    public void Set(ActionType actionType, Property property, Item item)
-    {
-        if (property is EquippableProperty equippableProperty)
-        {
-            if (!item.Properties.TryGetValue(actionType, out var propertiesList))
-            {
-                propertiesList = new List<Property>();
-                item.Properties[actionType] = propertiesList;
-            }
-
-            propertiesList.Add(equippableProperty);
-        }
-    }
-}
-```
-
-### Step 4: Create Property Class
-Create a property class that inherits from `Property` and set the property parser:
-
-```csharp
-public class EquippableProperty : Property
-{
-    public EquipType EquipType;
-    public override IPropertySetter PropertySetter { get; } = new EquippablePropertyParser();
 }
 ```
 
 ### Step 5: Create a Type Wrapper
-Define a class that acts as a wrapper for your property type:
+Define a class that acts as a wrapper for your property type to action:
 
 ```csharp
 [Serializable]
-public class TypeToEquip : IPropertyWithType
+public class ActionTypeToEquipProperty : IActionTypeToProperty
 {
     [field: SerializeField] public ActionType ActionType { get; set; }
     [field: SerializeField] public EquippableProperty EquipProperty { get; set; }
@@ -191,15 +178,13 @@ public class ItemSettings
     public string Name;
     public bool IsStackable;
     public int MaxInStack;
-
-    public PropertyType? CurrentType { get; private set; }
-
-    public List<TypeToConstantStat> ConstantStats = new List<TypeToConstantStat>();
-    public List<TypeToEquip> EquipTypes = new List<TypeToEquip>();
-
-    public void SetCurrentType(PropertyType propertyType)
+    
+    public ActionType? CurrentType { get; private set; }
+    public List<ActionTypeToConstantStatProperty> ConstantStatsProperties = new List<ActionTypeToConstantStatProperty>();
+    public List<ActionTypeToEquipProperty> EquipProperties = new List<ActionTypeToEquipProperty>();
+    public void SetCurrentType(ActionType actionType)
     {
-        CurrentType = propertyType;
+        CurrentType = actionType;
     }
 }
 ```
