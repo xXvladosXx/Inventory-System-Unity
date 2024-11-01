@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using InventorySystem.Items.Properties;
 using InventorySystem.Items.Types;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
 namespace InventorySystem.Items
@@ -15,20 +18,43 @@ namespace InventorySystem.Items
         [field: SerializeField, ReadOnly] public string Name { get; set; }
         [field: SerializeField] public bool IsStackable { get; set; }
         [field: SerializeField] public int MaxInStack { get; set; }
+        [field: SerializeField] public ItemType ItemType { get; set; }
         [field: SerializeField] public Sprite Icon { get; set; }
         [field: SerializeField] public Dictionary<ActionType, List<Property>> Properties { get; set; } = new Dictionary<ActionType, List<Property>>();
         
-        public bool TryGetProperty<TProperty>(ActionType actionType, out List<TProperty> properties) where TProperty : Property
+        public bool TryGetProperty<TProperty>(Type actionType, out List<TProperty> properties) where TProperty : Property
         {
             properties = null;
 
-            if (Properties.TryGetValue(actionType, out var props))
+            foreach (var entry in Properties)
             {
-                properties = props.OfType<TProperty>().ToList();
-                return properties.Count > 0;
+                if (entry.Key.GetType() == actionType)
+                {
+                    properties = entry.Value.OfType<TProperty>().ToList();
+                    return properties.Count > 0;
+                }
             }
 
             return false;
+        }
+
+        public string GetPropertiesDescription()
+        {
+            StringBuilder descriptionBuilder = new StringBuilder();
+
+            foreach (var entry in Properties)
+            {
+                descriptionBuilder.AppendLine($"{entry.Key}");
+
+                foreach (var property in entry.Value)
+                {
+                    descriptionBuilder.AppendLine($"- {property}");
+                }
+
+                descriptionBuilder.AppendLine(); 
+            }
+
+            return descriptionBuilder.ToString();
         }
     }
 }

@@ -37,14 +37,16 @@ namespace GoggleImporter
                 var item = ItemDatabase.FindItemByName(itemSettings.Name);
                 if (item == null)
                 {
-                    Debug.LogWarning($"Item with name {itemSettings.Name} not found in the project.");
-                    continue;
+                    Debug.LogWarning($"Item with name {itemSettings.Name} not found in the project. Creating new item.");
+                    item = ItemDatabase.CreateScriptableObjectWithName(itemSettings.Name);
                 }
-
+                
                 UpdateItemProperties(item, itemSettings);
 
                 EditorUtility.SetDirty(item);
             }
+            
+            ItemDatabase.FindItemsInProject();
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
@@ -55,7 +57,7 @@ namespace GoggleImporter
             item.Name = itemSettings.Name;
             item.IsStackable = itemSettings.IsStackable;
             item.MaxInStack = itemSettings.MaxInStack;
-
+            item.ItemType = itemSettings.ItemType;
             item.Properties ??= new Dictionary<ActionType, List<Property>>();
 
             var propertiesToRemove = new List<KeyValuePair<ActionType, Property>>();

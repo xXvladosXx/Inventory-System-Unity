@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using GoggleImporter.ItemParser.Types;
+using InventorySystem.Items;
 using InventorySystem.Items.Properties;
 using InventorySystem.Items.Types;
 using UnityEngine;
@@ -16,11 +17,11 @@ namespace GoggleImporter.ItemParser
         public string Name;
         public bool IsStackable;
         public int MaxInStack;
-        
-        public ActionType? CurrentType { get; private set; }
+        public ItemType ItemType;
 
-        public List<ActionTypeToConstantStatProperty> ConstantStatsProperties = new List<ActionTypeToConstantStatProperty>();
-        public List<ActionTypeToEquipProperty> EquipProperties = new List<ActionTypeToEquipProperty>();
+        public ActionType CurrentType { get; private set; }
+
+        public List<IActionTypeToProperty> AllProperties = new List<IActionTypeToProperty>();
 
         public void SetCurrentType(ActionType actionType)
         {

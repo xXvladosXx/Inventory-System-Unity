@@ -28,14 +28,8 @@ MonoBehaviour:
         Assembly-CSharp]], mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[InventorySystem.Items.Types.ActionType,
+      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[InventorySystem.Items.Types.ActionType,
         Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -46,18 +40,21 @@ MonoBehaviour:
       Entry: 7
       Data: 
     - Name: $k
-      Entry: 3
-      Data: 1
+      Entry: 7
+      Data: 2|InventorySystem.Items.Types.EquippableAction, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: $v
       Entry: 7
-      Data: 2|System.Collections.Generic.List`1[[InventorySystem.Items.Properties.Property,
+      Data: 3|System.Collections.Generic.List`1[[InventorySystem.Items.Properties.Property,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 4
     - Name: 
       Entry: 7
-      Data: 3|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
+      Data: 4|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
     - Name: ResetableOnImport
       Entry: 5
       Data: true
@@ -72,7 +69,22 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 4|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
+      Data: 5|InventorySystem.Items.Properties.EquippableProperty, Assembly-CSharp
+    - Name: ResetableOnImport
+      Entry: 5
+      Data: true
+    - Name: EquipType
+      Entry: 3
+      Data: 0
+    - Name: Level
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
     - Name: ResetableOnImport
       Entry: 5
       Data: true
@@ -87,7 +99,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 5|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
+      Data: 7|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
     - Name: ResetableOnImport
       Entry: 5
       Data: true
@@ -95,18 +107,6 @@ MonoBehaviour:
       Entry: 4
       Data: 15
     - Name: StatType
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 6|InventorySystem.Items.Properties.EquippableProperty, Assembly-CSharp
-    - Name: ResetableOnImport
-      Entry: 5
-      Data: true
-    - Name: EquipType
       Entry: 3
       Data: 0
     - Name: 
@@ -125,18 +125,21 @@ MonoBehaviour:
       Entry: 7
       Data: 
     - Name: $k
-      Entry: 3
-      Data: 0
+      Entry: 7
+      Data: 8|InventorySystem.Items.Types.ConsumableAction, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: $v
       Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[InventorySystem.Items.Properties.Property,
+      Data: 9|System.Collections.Generic.List`1[[InventorySystem.Items.Properties.Property,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 8|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
+      Data: 10|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
     - Name: ResetableOnImport
       Entry: 5
       Data: true
@@ -168,4 +171,5 @@ MonoBehaviour:
   <Name>k__BackingField: Sword
   <IsStackable>k__BackingField: 0
   <MaxInStack>k__BackingField: 1
-  <Icon>k__BackingField: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  <ItemType>k__BackingField: 0
+  <Icon>k__BackingField: {fileID: 21300000, guid: a332f9cc2040f6042a04c65fa9e4a000, type: 3}

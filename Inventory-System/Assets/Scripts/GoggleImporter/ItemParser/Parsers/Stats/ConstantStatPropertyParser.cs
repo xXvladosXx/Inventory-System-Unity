@@ -37,11 +37,11 @@ namespace GoggleImporter.ItemParser.Parsers.Stats
                     Value = value
                 };
 
-                if (itemSettings.CurrentType.HasValue)
+                if (itemSettings.CurrentType != null)
                 {
-                    itemSettings.ConstantStatsProperties.Add(new ActionTypeToConstantStatProperty
+                    itemSettings.AllProperties.Add(new ActionTypeToConstantStatProperty
                     {
-                        ActionType = itemSettings.CurrentType.Value,
+                        ActionType = itemSettings.CurrentType,
                         ConstantStat = property
                     });
                 }

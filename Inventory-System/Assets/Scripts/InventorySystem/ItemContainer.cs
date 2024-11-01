@@ -19,23 +19,6 @@ namespace InventorySystem
         [SerializeField] private Item _item2;
         public event Action<Dictionary<int, InventoryItem>, ItemContainer> OnItemsUpdated;
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                foreach (var item in _items)
-                {
-                    if (item.Item.TryGetProperty<ConstantStatProperty>(ActionType.ConsumableAction, out var constantStatProperties))
-                    {
-                        foreach (var constantStatProperty in constantStatProperties)
-                        {
-                            Debug.LogError(item.Item.Name + " " + constantStatProperty.StatType + " " + constantStatProperty.Value);
-                        }
-                    }
-                }
-            }
-        }
-
         public void Initialize()
         {
             for (int i = 0; i < Size; i++)
@@ -112,6 +95,52 @@ namespace InventorySystem
 
             return amount;
         }
+        
+        public int RemoveItem(InventoryItem item, int amount)
+        {
+            for (int i = 0; i < _items.Count; i++)
+            {
+                if (_items[i].Item.ID == item.Item.ID)
+                {
+                    if (_items[i].Amount > amount)
+                    {
+                        _items[i] = _items[i].ChangeAmount(_items[i].Amount - amount);
+                        OnItemsUpdated?.Invoke(GetContainerState(), this);
+                        return 0;
+                    }
+
+                    amount -= _items[i].Amount;
+                    _items[i] = InventoryItem.CreateEmpty();
+
+                    if (amount <= 0)
+                    {
+                        OnItemsUpdated?.Invoke(GetContainerState(), this);
+                        return 0;
+                    }
+                }
+            }
+        
+            OnItemsUpdated?.Invoke(GetContainerState(), this);
+            return amount; 
+        }
+
+        public void RemoveItemAtIndex(int index, int amount)
+        {
+            if (index < 0 || index >= _items.Count || _items[index].IsEmpty)
+                return;
+
+            if (_items[index].Amount > amount)
+            {
+                _items[index] = _items[index].ChangeAmount(_items[index].Amount - amount);
+            }
+            else
+            {
+                _items[index] = InventoryItem.CreateEmpty();
+            }
+
+            OnItemsUpdated?.Invoke(GetContainerState(), this);
+        }
+
 
         public Dictionary<int, InventoryItem> GetContainerState()
         {

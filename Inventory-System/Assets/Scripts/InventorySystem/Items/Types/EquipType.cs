@@ -2,7 +2,16 @@
 {
     public enum EquipType
     {
-        Sword,
-        Helmet
+        Melee,
+        Ranged,
+        Helmet,
+        Armor,
+        Gloves,
+        Pants,
+        Necklace,
+        Bracers,
+        Boots,
+        Shoulders,
+        Cloak
     }
 }

@@ -19,30 +19,32 @@ namespace GoggleImporter.ItemParser.Parsers.Equipment
             if (string.IsNullOrEmpty(token)) return;
 
             var propertyParts = token.Split(';');
-            if (propertyParts.Length < 1)
+            var equipTypeValue = propertyParts[0];
+            var levelValue = propertyParts.Length > 1 ? propertyParts[1] : "0";
+
+            if (!Enum.TryParse(equipTypeValue, out EquipType equipType))
             {
-                Debug.LogError($"Invalid format for EquippableProperty: {token}");
+                Debug.LogError($"Invalid EquipType for EquippableProperty: {equipTypeValue}");
                 return;
             }
 
-            var propertyValue = propertyParts[0]; 
-
             var property = new EquippableProperty
             {
-                EquipType = (EquipType)Enum.Parse(typeof(EquipType), propertyValue)
+                EquipType = equipType,
+                Level = int.TryParse(levelValue, out int level) ? level : 0
             };
 
-            if (itemSettings.CurrentType.HasValue)
+            if (itemSettings.CurrentType != null)
             {
-                itemSettings.EquipProperties.Add(new ActionTypeToEquipProperty
+                itemSettings.AllProperties.Add(new ActionTypeToEquipProperty
                 {
-                    ActionType = itemSettings.CurrentType.Value,
+                    ActionType = itemSettings.CurrentType,
                     EquipProperty = property
                 });
             }
             else
             {
-                Debug.LogError("No type set for EquippableProperty. Item " + itemSettings.Name);
+                Debug.LogWarning($"No type set for EquippableProperty. Default Level: {property.Level}. Item: {itemSettings.Name}");
             }
         }
     }

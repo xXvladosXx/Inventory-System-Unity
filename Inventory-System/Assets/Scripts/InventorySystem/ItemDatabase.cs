@@ -14,6 +14,7 @@ namespace InventorySystem
     {
         [field: SerializeField] public Dictionary<int, Item> IDsItemsDictionary { get; private set; } = new Dictionary<int, Item>();
         [field: SerializeField] public Dictionary<string, Item> NameItemsDictionary { get; private set; } = new Dictionary<string, Item>();
+        [SerializeField] private int _lastID = 1;
 
         private int _nextAvailableID = 1;
 
@@ -22,6 +23,8 @@ namespace InventorySystem
         public void FindItemsInProject()
         {
             NameItemsDictionary.Clear();
+            IDsItemsDictionary.Clear();
+        
             string[] guids = AssetDatabase.FindAssets("t:Item");
 
             foreach (string guid in guids)
@@ -32,37 +35,41 @@ namespace InventorySystem
                 if (item != null)
                 {
                     NameItemsDictionary.TryAdd(item.name, item);
-                    
-                    if (IDsItemsDictionary.ContainsKey(item.ID))
+                
+                    if (IDsItemsDictionary.ContainsKey(item.ID) || item.ID <= 0)
                     {
-                        continue;
-                    }
-
-                    if (item.ID <= 0)
-                    {
+                        Debug.LogWarning($"Duplicate ID {item.ID} found for item at path: {path}. Generating new ID.");
                         item.ID = GenerateUniqueID();
                         EditorUtility.SetDirty(item); 
-                        Debug.Log($"Assigned new ID {item.ID} to item at path: {path}");
                     }
+                    
+                    if (item.ID > _lastID)
+                        _lastID = item.ID;
 
-                    IDsItemsDictionary.Add(item.ID, item);
-                    NameItemsDictionary.Add(item.Name, item);
+                    IDsItemsDictionary[item.ID] = item;
+                    NameItemsDictionary[item.name] = item;
+
+                    Debug.Log($"Item '{item.name}' assigned ID: {item.ID} (Path: {path})");
                 }
             }
 
+            EditorUtility.SetDirty(this);
             AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh(); 
+            AssetDatabase.Refresh();
         }
 #endif
 
 
         private int GenerateUniqueID()
         {
-            while (IDsItemsDictionary.ContainsKey(_nextAvailableID))
+            while (IDsItemsDictionary.ContainsKey(_lastID))
             {
-                _nextAvailableID++;
+                _lastID++;
             }
-            return _nextAvailableID;
+            
+            EditorUtility.SetDirty(this);
+        
+            return _lastID++;
         }
         
         public Item FindItemByName(string itemName)
@@ -74,6 +81,30 @@ namespace InventorySystem
            
             return null;
         }
-    }
+        
+        public Item CreateScriptableObjectWithName(string itemName) => CreateAssetWithName<Item>(itemName);
 
+        private T CreateAssetWithName<T>(string itemName) where T : ScriptableObject
+        {
+            T asset = ScriptableObject.CreateInstance<T>();
+
+            string assetPath = $"Assets/Data/InventorySystem/Items/{itemName}.asset";
+
+            if (AssetDatabase.LoadAssetAtPath<T>(assetPath) != null)
+            {
+                Debug.LogWarning($"Asset with name '{itemName}' already exists. Please choose a different name.");
+                return null;
+            }
+
+            AssetDatabase.CreateAsset(asset, assetPath);
+            AssetDatabase.SaveAssets();
+
+            EditorUtility.FocusProjectWindow();
+            Selection.activeObject = asset;
+
+            Debug.Log($"ScriptableObject '{itemName}' created at {assetPath}");
+
+            return asset;
+        }
+    }
 }

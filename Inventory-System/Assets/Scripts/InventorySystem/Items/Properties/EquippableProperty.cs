@@ -8,5 +8,7 @@ namespace InventorySystem.Items.Properties
     {
         public override PropertyType PropertyType => PropertyType.EquippableProperty;
         public EquipType EquipType;
+        public int Level;
+        public override string ToString() => $"Type: {EquipType}";
     }
 }

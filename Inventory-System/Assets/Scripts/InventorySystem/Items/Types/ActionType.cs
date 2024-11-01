@@ -1,8 +1,7 @@
 namespace InventorySystem.Items.Types
 {
-    public enum ActionType 
+    public abstract class ActionType 
     {
-        ConsumableAction,
-        EquippableAction
+        
     }
 }

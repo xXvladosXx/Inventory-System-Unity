@@ -12,5 +12,8 @@ namespace InventorySystem.Items.Properties
         public override PropertyType PropertyType => PropertyType.ConstantStatProperty;
         public float Value;
         public StatType StatType;
+
+        public override string ToString() => 
+            $"{StatType}: {Value}";
     }
 }
