@@ -35,7 +35,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
       Data: 
@@ -79,46 +79,6 @@ MonoBehaviour:
     - Name: Level
       Entry: 3
       Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 7
-      Data: 6|InventorySystem.Items.Types.ConsumableAction, Assembly-CSharp
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: $v
-      Entry: 7
-      Data: 7|System.Collections.Generic.List`1[[InventorySystem.Items.Properties.Property,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 8|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
-    - Name: ResetableOnImport
-      Entry: 5
-      Data: true
-    - Name: Value
-      Entry: 4
-      Data: 10
-    - Name: StatType
-      Entry: 3
-      Data: 0
     - Name: 
       Entry: 8
       Data: 

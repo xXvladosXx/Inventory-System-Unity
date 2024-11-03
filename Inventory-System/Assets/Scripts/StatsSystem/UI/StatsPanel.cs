@@ -25,25 +25,30 @@ namespace StatsSystem
             }
         }
 
-        public void RefreshStat(string stat, float value)
+        public void RefreshStats(Dictionary<StatType, float> changedStats)
         {
             var count = 0;
-            if (_activeStatRows.TryGetValue(stat, out var existingRow))
+
+            foreach (var stat in changedStats)
             {
-                existingRow.SetStat(stat, value);
-                existingRow.AnimateRowAppearance(count);
-                count++;
-            }
-            else
-            {
-                var row = GetStatRow();
-                row.SetStat(stat, value);
-                _activeStatRows[stat] = row;
-                row.AnimateRowAppearance(count);
+                var statKey = stat.Key.ToString();
+                if (_activeStatRows.TryGetValue(statKey, out var existingRow))
+                {
+                    existingRow.SetStat(statKey, stat.Value);
+                    existingRow.AnimateRowAppearance(count);
+                }
+                else
+                {
+                    var row = GetStatRow();
+                    row.SetStat(statKey, stat.Value);
+                    _activeStatRows[statKey] = row;
+                    row.AnimateRowAppearance(count);
+                }
+                
                 count++;
             }
         }
-        
+
         private StatRow GetStatRow()
         {
             StatRow row;
@@ -59,29 +64,6 @@ namespace StatsSystem
             }
             
             return row;
-        }
-
-        public void RefreshStats(Dictionary<StatType,float> stats)
-        {
-            var count = 0;
-
-            foreach (var stat in stats)
-            {
-                if (_activeStatRows.TryGetValue(stat.Key.ToString(), out var existingRow))
-                {
-                    existingRow.SetStat(stat.Key.ToString(), stat.Value);
-                    existingRow.AnimateRowAppearance(count);
-                }
-                else
-                {
-                    var row = GetStatRow();
-                    row.SetStat(stat.Key.ToString(), stat.Value);
-                    _activeStatRows[stat.Key.ToString()] = row;
-                    row.AnimateRowAppearance(count);
-                }
-                
-                count++;
-            }
         }
     }
 }

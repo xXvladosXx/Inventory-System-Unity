@@ -17,6 +17,7 @@ namespace InventorySystem
         [SerializeField] private List<InventoryItem> _items = new List<InventoryItem>();
         [SerializeField] private Item _item;
         [SerializeField] private Item _item2;
+
         public event Action<Dictionary<int, InventoryItem>, ItemContainer> OnItemsUpdated;
 
         public void Initialize()
@@ -140,6 +141,16 @@ namespace InventorySystem
 
             OnItemsUpdated?.Invoke(GetContainerState(), this);
         }
+        
+        public void RemoveItemsAtIndex(int index)
+        {
+            if (index < 0 || index >= _items.Count || _items[index].IsEmpty)
+                return;
+
+            _items[index] = InventoryItem.CreateEmpty();
+
+            OnItemsUpdated?.Invoke(GetContainerState(), this);
+        }
 
 
         public Dictionary<int, InventoryItem> GetContainerState()
@@ -155,10 +166,51 @@ namespace InventorySystem
 
             return occupiedSlots;
         }
+        
+        public List<InventoryItem> GetContainerStateItems()
+        {
+            List<InventoryItem> occupiedSlots = new List<InventoryItem>();
+            for (int i = 0; i < _items.Count; i++)
+            {
+                if (!_items[i].IsEmpty)
+                {
+                    occupiedSlots.Add(_items[i]);
+                }
+            }
+
+            return occupiedSlots;
+        }
 
         public InventoryItem GetItem(int index) => _items[index];
 
         public void AddItem(InventoryItem item) => AddItem(item.Item, item.Amount);
+        
+        public List<InventoryItem> FilterItems(Func<InventoryItem, bool> predicate) => 
+            _items.Where(item => !item.IsEmpty && predicate(item)).ToList();
+
+        public int IndexOf(InventoryItem targetItem)
+        {
+            for (int i = 0; i < _items.Count; i++)
+            {
+                if (_items[i].Item == targetItem.Item)
+                {
+                    return i;
+                }
+            }
+            return -1; 
+        }
+
+        public int GetFirstEmptySlotIndex()
+        {
+            for (int i = 0; i < _items.Count; i++)
+            {
+                if (_items[i].IsEmpty)
+                {
+                    return i;
+                }
+            }
+            return -1; 
+        }
 
         public void SwapItems(int index1, int index2)
         {

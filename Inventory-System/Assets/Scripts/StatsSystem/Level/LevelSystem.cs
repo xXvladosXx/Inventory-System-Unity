@@ -18,6 +18,7 @@ namespace StatsSystem.Level
 
     public int CurrentLevel => _currentLevel;
     public int CurrentExperience => _currentExperience;
+    public IReadOnlyDictionary<int, int> ExperiencePerLevel => _experiencePerLevel;
 
     private void Start()
     {

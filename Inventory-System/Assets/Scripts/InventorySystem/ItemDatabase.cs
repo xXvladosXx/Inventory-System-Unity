@@ -24,7 +24,7 @@ namespace InventorySystem
         {
             NameItemsDictionary.Clear();
             IDsItemsDictionary.Clear();
-        
+
             string[] guids = AssetDatabase.FindAssets("t:Item");
 
             foreach (string guid in guids)
@@ -34,21 +34,22 @@ namespace InventorySystem
 
                 if (item != null)
                 {
-                    NameItemsDictionary.TryAdd(item.name, item);
-                
-                    if (IDsItemsDictionary.ContainsKey(item.ID) || item.ID <= 0)
+                    if (!NameItemsDictionary.TryAdd(item.name, item))
                     {
-                        Debug.LogWarning($"Duplicate ID {item.ID} found for item at path: {path}. Generating new ID.");
-                        item.ID = GenerateUniqueID();
-                        EditorUtility.SetDirty(item); 
+                        Debug.LogWarning($"Duplicate item name '{item.name}' found at path {path}. Skipping.");
+                        continue;
+                    }
+
+                    if (item.ID <= 0 || IDsItemsDictionary.ContainsKey(item.ID))
+                    {
+                        item.ID = GenerateUniqueID(); 
+                        EditorUtility.SetDirty(item);
                     }
                     
                     if (item.ID > _lastID)
                         _lastID = item.ID;
 
                     IDsItemsDictionary[item.ID] = item;
-                    NameItemsDictionary[item.name] = item;
-
                     Debug.Log($"Item '{item.name}' assigned ID: {item.ID} (Path: {path})");
                 }
             }
@@ -58,6 +59,7 @@ namespace InventorySystem
             AssetDatabase.Refresh();
         }
 #endif
+
 
 
         private int GenerateUniqueID()

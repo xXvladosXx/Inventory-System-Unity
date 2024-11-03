@@ -34,23 +34,28 @@ namespace StatsSystem
         }
 
         [Button]
-        public void Calculate()
+        public void CalculateAndUpdateChangedStats()
         {
             var collectedStats = CollectStats();
             var summedStats = SumStats(collectedStats);
-            
-            _cachedStats.Clear();
-            foreach (var baseStatKey in _statsContainer.BaseStats.Keys)
+
+            var changedStats = new Dictionary<StatType, float>();
+
+            foreach (var stat in summedStats)
             {
-                _cachedStats[baseStatKey] = summedStats.GetValueOrDefault(baseStatKey, 0); 
+                if (!_cachedStats.TryGetValue(stat.Key, out var cachedValue) || !Mathf.Approximately(cachedValue, stat.Value))
+                {
+                    changedStats[stat.Key] = stat.Value;
+                    _cachedStats[stat.Key] = stat.Value;  
+                }
             }
-            
-            DisplayStats();
+
+            DisplayChangedStats(changedStats);
         }
 
         private void RecalculateStats()
         {
-            Calculate();
+            CalculateAndUpdateChangedStats();
         }
 
         private Dictionary<StatType, List<CoreStat>> CollectStats()
@@ -87,9 +92,22 @@ namespace StatsSystem
             return summedStats;
         }
 
-        private void DisplayStats()
+        private void DisplayChangedStats(Dictionary<StatType, float> changedStats)
         {
-            _statsPanel.RefreshStats(_cachedStats);
+            if (changedStats.Count > 0)
+            {
+                var orderedChangedStats = new Dictionary<StatType, float>();
+
+                foreach (var statType in _statsContainer.BaseStats.Keys)
+                {
+                    if (changedStats.TryGetValue(statType, out float value))
+                    {
+                        orderedChangedStats[statType] = value;
+                    }
+                }
+
+                _statsPanel.RefreshStats(orderedChangedStats);
+            }
         }
     }
 }

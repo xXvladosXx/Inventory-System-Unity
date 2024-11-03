@@ -7,6 +7,7 @@ using InventorySystem.Items.Types;
 using InventorySystem.Loot;
 using InventorySystem.UI.ClickAction;
 using InventorySystem.UI.ContextMenu;
+using InventorySystem.UI.Filter;
 using InventorySystem.UI.Panels;
 using InventorySystem.UI.Slots.SlotType;
 using StatsSystem;
@@ -26,6 +27,8 @@ namespace InventorySystem.UI
         [SerializeField] private ItemTooltip _itemTooltip;
         [SerializeField] private ItemContextMenu _itemContextMenu;
         [SerializeField] private LevelSystem _levelSystem;
+        [SerializeField] private PlayerPreviewUI _playerPreviewUI;
+        [SerializeField] private EquipmentPreview _playerModel;
         
         [SerializeField] private ItemContainer _inventoryContainer;
         [SerializeField] private ItemContainer _equipmentContainer;
@@ -45,6 +48,9 @@ namespace InventorySystem.UI
         {
             PrepareUI();
             PrepareContainers();
+            
+            _playerModel.DeactivateModels();
+            _playerPreviewUI.Initialize(_playerModel);
 
             _lootOpener.OnLootContainerOpened += OpenLootContainer;
         }
@@ -67,7 +73,7 @@ namespace InventorySystem.UI
             panelToInitialize.OnDoubleClicked += OnDoubleClicked;
             panelToInitialize.OnSwapRequested += OnSwapRequested;
             panelToInitialize.OnItemActionRequested += OnItemActionRequested;
-            
+
             _containerPanels.Add(panelToInitialize);
         }
 
@@ -179,23 +185,32 @@ namespace InventorySystem.UI
         private void OnStartDrag(BaseItemContainerPanel inventoryPanel, int index)
         {
             _itemContextMenu.Hide();
-            var inventoryItem = inventoryPanel.ItemContainer.GetItem(index);
+
+            var actualIndex = index; 
+            
+            if (actualIndex == -1) 
+                return; 
+
+            var inventoryItem = inventoryPanel.ItemContainer.GetItem(actualIndex);
             if (inventoryItem.IsEmpty)
                 return;
-            
-            inventoryPanel.CreateDragItem(inventoryItem.Item.Icon, inventoryItem.Amount, index);
+
+            inventoryPanel.CreateDragItem(inventoryItem.Item.Icon, inventoryItem.Amount, actualIndex);
         }
 
         private void OnDoubleClicked(BaseItemContainerPanel inventoryPanel, int index)
         {
             _itemContextMenu.Hide();
-            var inventoryItem = inventoryPanel.ItemContainer.GetItem(index);
+
+            var filteredIndex = index;
+            
+            var inventoryItem = inventoryPanel.ItemContainer.GetItem(filteredIndex);
             if (inventoryItem.IsEmpty) 
                 return;
 
             if (_linkedPanels.TryGetValue(inventoryPanel, out var panelAction))
             {
-                var context = new ItemClickContext(inventoryPanel, panelAction, _levelSystem, inventoryItem, index);
+                var context = new ItemClickContext(inventoryPanel, panelAction, _levelSystem, inventoryItem, filteredIndex);
                 foreach (var action in inventoryPanel.ItemContexts.Keys)
                 {
                     if (inventoryItem.Item.TryGetProperty<Property>(action.GetType(), out _))
@@ -211,10 +226,10 @@ namespace InventorySystem.UI
             }
         }
 
-        private void OnItemActionRequested(BaseItemContainerPanel inventoryPanel, int index)
+        private void OnItemActionRequested(BaseItemContainerPanel inventoryPanel, int index, Vector3 slotPosition)
         {
-            var slotPosition = inventoryPanel.Slots[index].transform.position;
-            var inventoryItem = inventoryPanel.ItemContainer.GetItem(index);
+            var filteredIndex = index;
+            var inventoryItem = inventoryPanel.ItemContainer.GetItem(filteredIndex);
 
             var actions = new List<ItemClickAction>();
             
@@ -230,10 +245,11 @@ namespace InventorySystem.UI
 
             if (_linkedPanels.TryGetValue(inventoryPanel, out var panelAction))
             {
-                var context = new ItemClickContext(inventoryPanel, panelAction, _levelSystem, inventoryItem, index);
+                var context = new ItemClickContext(inventoryPanel, panelAction, _levelSystem, inventoryItem, filteredIndex);
                 
                 foreach (var activeOption in _itemContextMenu.ActiveOptions)
                 {
+                    activeOption.OnOptionClicked -= OnOptionClicked;
                     activeOption.AssignAction(context);
                     activeOption.OnOptionClicked += OnOptionClicked;
                 }
@@ -246,17 +262,30 @@ namespace InventorySystem.UI
             {
                 activeOption.OnOptionClicked -= OnOptionClicked;
             }
-            
-            action.OnActionClick(context);
-            OnStatsChanged?.Invoke();
+
+            if (action.OnActionClick(context))
+            {
+                OnStatsChanged?.Invoke();
+            }
         }
 
         private void OnSwapRequested(BaseItemContainerPanel startContainer,
             BaseItemContainerPanel endContainer, 
             int index1, int index2)
         {
-            if (!ConditionUtils.IsConditionMet(_levelSystem, endContainer.Slots[index2], startContainer.ItemContainer.GetItem(index1))
-                || !ConditionUtils.IsConditionMet(_levelSystem, startContainer.Slots[index1], endContainer.ItemContainer.GetItem(index2)))
+            var filteredIndexFromStartPanel = index1;
+            var filteredIndexFromEndPanel = index2; 
+
+            if (filteredIndexFromStartPanel == -1 || filteredIndexFromEndPanel == -1)
+            {
+                endContainer.ItemContainer.AddItem(startContainer.ItemContainer.GetItem(index1));
+                startContainer.ItemContainer.RemoveItemsAtIndex(index1);
+                _itemTooltip.HideTooltip();
+                return;
+            }
+            
+            if (!ConditionUtils.IsConditionMet(_levelSystem, endContainer.Slots[filteredIndexFromEndPanel], startContainer.ItemContainer.GetItem(filteredIndexFromStartPanel))
+                || !ConditionUtils.IsConditionMet(_levelSystem, startContainer.Slots[filteredIndexFromStartPanel], endContainer.ItemContainer.GetItem(filteredIndexFromEndPanel)))
             {
                 _itemTooltip.HideTooltip();
                 return;
@@ -264,22 +293,18 @@ namespace InventorySystem.UI
 
             if (startContainer == endContainer)
             {
-                startContainer.ItemContainer.SwapItems(index1, index2);
+                startContainer.ItemContainer.SwapItems(filteredIndexFromStartPanel, filteredIndexFromEndPanel);
             }
             else
             {
-                var itemFromStartContainer = startContainer.ItemContainer.GetItem(index1);
-                var itemFromEndContainer = endContainer.ItemContainer.GetItem(index2);
-                startContainer.ItemContainer.SetItem(index1, itemFromEndContainer);
-                endContainer.ItemContainer.SetItem(index2, itemFromStartContainer);
+                var itemFromStartContainer = startContainer.ItemContainer.GetItem(filteredIndexFromStartPanel);
+                var itemFromEndContainer = endContainer.ItemContainer.GetItem(filteredIndexFromEndPanel);
+                startContainer.ItemContainer.SetItem(filteredIndexFromStartPanel, itemFromEndContainer);
+                endContainer.ItemContainer.SetItem(filteredIndexFromEndPanel, itemFromStartContainer);
             }
-            
-            if (startContainer.ItemContainer == _equipmentContainer || endContainer.ItemContainer == _equipmentContainer)
-                OnStatsChanged?.Invoke();
         }
-
-        private void OnInventoriesUpdated(Dictionary<int, InventoryItem> inventoryItems,
-            ItemContainer itemContainer)
+        
+        private void OnInventoriesUpdated(Dictionary<int, InventoryItem> inventoryItems, ItemContainer itemContainer)
         {
             _itemContextMenu.Hide();
 
@@ -287,23 +312,15 @@ namespace InventorySystem.UI
             {
                 if (panel.ItemContainer == itemContainer)
                 {
-                    panel.ResetAllItems();
-
-                    foreach (var (index, inventoryItem) in inventoryItems)
-                    {
-                        panel.UpdateSlot(index, inventoryItem.Item.Icon, inventoryItem.Amount);
-                    }
+                    panel.UpdateInventoryDisplay();
+                    panel.RefreshFilter();
                 }
             }
 
-            if (_lootPanel.ItemContainer == itemContainer)
+            if (itemContainer == _equipmentContainer)
             {
-                _lootPanel.ResetAllItems();
-                
-                foreach (var (index, inventoryItem) in inventoryItems)
-                {
-                    _lootPanel.UpdateSlot(index, inventoryItem.Item.Icon, inventoryItem.Amount);
-                }
+                _playerModel.RefreshItems(_equipmentContainer.GetContainerState());
+                OnStatsChanged?.Invoke();
             }
         }
     }

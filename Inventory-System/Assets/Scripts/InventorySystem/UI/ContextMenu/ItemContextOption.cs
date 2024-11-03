@@ -3,6 +3,7 @@ using DG.Tweening;
 using InventorySystem.UI.ClickAction;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace InventorySystem.UI.ContextMenu
@@ -15,7 +16,9 @@ namespace InventorySystem.UI.ContextMenu
 
         private Tween _appearanceTween;
         private Tween _fadeTween;
-        public ItemClickAction ContextOption { get; private set; }
+        
+        private ItemClickContext _itemClickContext;
+        private ItemClickAction _contextOption;
 
         public event Action<ItemClickAction, ItemClickContext> OnOptionClicked; 
 
@@ -23,7 +26,7 @@ namespace InventorySystem.UI.ContextMenu
         {
             _button.onClick.RemoveAllListeners();
             
-            ContextOption = contextOption;
+            _contextOption = contextOption;
             _text.text = contextOption.Name;
             _canvasGroup.alpha = 0;
             _canvasGroup.DOFade(1, 0.2f).SetEase(Ease.InOutSine);
@@ -38,14 +41,18 @@ namespace InventorySystem.UI.ContextMenu
 
         public void AssignAction(ItemClickContext itemClickContext)
         {
-            _button.onClick.AddListener(() =>
-            {
-                OnOptionClicked?.Invoke(ContextOption, itemClickContext);
-            });
+            _itemClickContext = itemClickContext;
+            _button.onClick.AddListener(InvokeClickAction);
         }
-        
+
+        private void InvokeClickAction()
+        {
+            OnOptionClicked?.Invoke(_contextOption, _itemClickContext);
+        }
+
         public void KillTweens()
         {
+            _button.onClick.RemoveAllListeners();
             _appearanceTween?.Kill();
             _fadeTween?.Kill();
         }

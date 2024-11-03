@@ -19,6 +19,8 @@ namespace InventorySystem.UI.Slots
         private bool _empty = true;
         private float _lastClickTime;
 
+        public int Index { get; private set; }
+        
         public Sprite Icon => _icon.sprite;
         public int Amount => int.Parse(_amount.text);
         public IReadOnlyList<SlotCondition> Conditions => _conditions;
@@ -34,6 +36,11 @@ namespace InventorySystem.UI.Slots
 
         private const float DOUBLE_CLICK_THRESHOLD = 0.3f;
 
+        public void Initialize(int index)
+        {
+            Index = index;
+        }
+        
         public void ResetData()
         {
             _icon.gameObject.SetActive(false);
@@ -43,7 +50,17 @@ namespace InventorySystem.UI.Slots
         public void SetData(Sprite icon, int amount)
         {
             _icon.sprite = icon;
-            _amount.text = amount.ToString();
+            
+            if (amount == 1)
+            {
+                _amount.gameObject.SetActive(false);
+            }
+            else
+            {
+                _amount.gameObject.SetActive(true);
+                _amount.text = amount.ToString();
+            }
+            
             _icon.gameObject.SetActive(true);
             _empty = false;
         }
