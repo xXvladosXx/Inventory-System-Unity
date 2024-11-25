@@ -1,5 +1,7 @@
 ﻿using DG.Tweening;
 using InventorySystem.Items;
+using InventorySystem.Items.Properties;
+using InventorySystem.Items.Types;
 using TMPro;
 using UnityEngine;
 
@@ -7,31 +9,30 @@ namespace InventorySystem.UI
 {
     public class ItemTooltip : MonoBehaviour
     {
+        [SerializeField] private Canvas _canvas;
+        [SerializeField] private RectTransform _canvasRectTransform;
+        
+        [SerializeField] private RectTransform _rectTransform;
+        [SerializeField] private CanvasGroup _canvasGroup;
+        
         [SerializeField] private TextMeshProUGUI _itemName;         
         [SerializeField] private TextMeshProUGUI _itemCathegory;    
+        [SerializeField] private TextMeshProUGUI _itemRequirements;    
         [SerializeField] private TextMeshProUGUI _itemDescription;         
 
-        public GameObject tooltipPanel;  
-        public Vector2 offset;           
-
-        private RectTransform tooltipRectTransform; 
-        private Canvas canvas;                      
-
-        private Tween fadeTween;
-        private float hideDelay = 0.2f; 
+        private Tween _fadeTween;
+        private float _hideDelay = 0.2f; 
     
         private void Awake()
         {
-            tooltipPanel.SetActive(false);
+            gameObject.SetActive(false);
 
-            tooltipRectTransform = tooltipPanel.GetComponent<RectTransform>();
-            canvas = tooltipPanel.GetComponentInParent<Canvas>();
-            tooltipPanel.GetComponent<CanvasGroup>().alpha = 0; 
+            _canvasGroup.alpha = 0; 
         }
 
         public void ShowTooltip(InventoryItem inventoryItem)
         {
-            fadeTween?.Kill();
+            _fadeTween?.Kill();
 
             if (inventoryItem.Item == null)
             {
@@ -39,47 +40,58 @@ namespace InventorySystem.UI
                 return;
             }
         
-            tooltipPanel.SetActive(true);
+            gameObject.SetActive(true);
             _itemName.text = inventoryItem.Item.Name;
-            _itemCathegory.text = inventoryItem.Item.ItemType.ToString();
+            
+            _itemCathegory.text = inventoryItem.Item.TryGetProperty<EquippableProperty>(out var equippableProperty) 
+                ? equippableProperty.EquipType.ToString() : inventoryItem.Item.ItemType.ToString();
+
+            if (equippableProperty != null && equippableProperty.Level != 0)
+            {
+                _itemRequirements.text = $"Requires Level: {equippableProperty.Level}";
+                _itemRequirements.gameObject.SetActive(true);
+            }
+            else
+            {
+                _itemRequirements.gameObject.SetActive(false);
+            }
+            
             _itemDescription.text = inventoryItem.Item.GetPropertiesDescription();
         
-            tooltipPanel.transform.localScale = Vector3.zero;
+            gameObject.transform.localScale = Vector3.zero;
             UpdateTooltipPosition();
         
-            tooltipPanel.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack); 
-            fadeTween = tooltipPanel.GetComponent<CanvasGroup>().DOFade(1, 0.2f);
+            gameObject.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack); 
+            _fadeTween = _canvasGroup.DOFade(1, 0.2f);
         }
 
         public void HideTooltip()
         {
-            if (!tooltipPanel.activeSelf) return;
+            if (!gameObject.activeSelf) return;
         
-            fadeTween?.Kill();
+            _fadeTween?.Kill();
 
-            fadeTween = tooltipPanel.GetComponent<CanvasGroup>().DOFade(0, 0.2f).OnComplete(() =>
+            _fadeTween = _canvasGroup.DOFade(0, 0.2f).OnComplete(() =>
             {
-                tooltipPanel.SetActive(false); 
+                gameObject.SetActive(false); 
             });
         
-            tooltipPanel.transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack);
+            gameObject.transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack);
         }
 
         private void UpdateTooltipPosition()
         {
             Vector2 localPoint;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                canvas.transform as RectTransform, 
+                _canvas.transform as RectTransform, 
                 Input.mousePosition, 
-                canvas.worldCamera, 
+                _canvas.worldCamera, 
                 out localPoint
             );
 
-            Vector2 tooltipPosition = localPoint + offset;
-
-            Vector2 tooltipSize = tooltipRectTransform.sizeDelta;
-
-            Vector2 canvasSize = canvas.GetComponent<RectTransform>().sizeDelta;
+            Vector2 tooltipPosition = localPoint;
+            Vector2 tooltipSize = _rectTransform.sizeDelta;
+            Vector2 canvasSize = _canvasRectTransform.sizeDelta;
 
             if (tooltipPosition.x + tooltipSize.x > canvasSize.x / 2)
             {
@@ -101,12 +113,12 @@ namespace InventorySystem.UI
                 tooltipPosition.y = -canvasSize.y / 2;
             }
 
-            tooltipRectTransform.localPosition = tooltipPosition;
+            _rectTransform.localPosition = tooltipPosition;
         }
 
         private void Update()
         {
-            if (tooltipPanel.activeSelf)
+            if (gameObject.activeSelf)
             {
                 UpdateTooltipPosition();
             }

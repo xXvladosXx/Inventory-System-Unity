@@ -1,4 +1,5 @@
 ﻿using InventorySystem.UI.Slots;
+using TMPro;
 using UnityEngine;
 
 namespace InventorySystem.UI.Panels
@@ -7,15 +8,36 @@ namespace InventorySystem.UI.Panels
     {
         [SerializeField] protected ContainerSlot _containerSlotPrefab;
         [SerializeField] protected RectTransform _content;
-
-        protected override void InitializeSlots()
+        
+        [SerializeField] private TMP_InputField _searchItem;
+        [SerializeField] private TMP_Dropdown _typeItem;
+        
+        protected override void InitializeSlots(int size)
         {
-            for (int i = 0; i < ItemContainer.Size; i++)
+            for (int i = 0; i < size; i++)
             {
                 var slot = Instantiate(_containerSlotPrefab, _content);
                 slots.Add(slot);
                 AddSlotListeners(slot);
             }
+        }
+
+        protected override void InitializeFilters()
+        {
+            if (_typeItem == null)
+                return;
+            
+            _typeItem.onValueChanged.AddListener(OnOnItemTypeRequested);
+            _searchItem.onValueChanged.AddListener(OnOnItemSearchRequested);
+        }
+        
+        protected override void DisposeFilters()
+        {
+            if (_typeItem == null)
+                return;
+
+            _typeItem.onValueChanged.RemoveListener(OnOnItemTypeRequested);
+            _searchItem.onValueChanged.RemoveListener(OnOnItemSearchRequested);
         }
     }
 }

@@ -1,4 +1,6 @@
 using System;
+using InventorySystem.Items.Types;
+using InventorySystem.UI.Panels;
 using InventorySystem.UI.Slots;
 using InventorySystem.UI.Slots.SlotType;
 
@@ -7,9 +9,16 @@ namespace InventorySystem.UI.ClickAction
     [Serializable]
     public class EquipClickAction : ItemClickAction
     {
-        public override bool OnActionClick(ItemClickContext context)
+        public override string Name => "Equip";
+        public override Type ActionType => typeof(EquippableAction);
+
+        public EquipClickAction(BaseItemContainerPanel startPanel, BaseItemContainerPanel endPanel,
+            ItemContainer startItemContainer, ItemContainer endItemContainer) 
+            : base(startPanel, endPanel, startItemContainer, endItemContainer) { }
+
+        public override bool OnActionClickSuccess(ItemClickContext context)
         {
-            if (ConditionUtils.HasAppropriateSlot(context.LevelSystem, context.EndContainerPanel, context.Item, out var slot))
+            if (ConditionUtils.HasAppropriateSlot(context.LevelSystem, EndPanel, EndItemContainer, context.Item, out var slot))
             {
                 TransferItemBetweenPanels(context, slot);
                 return true;
@@ -18,17 +27,13 @@ namespace InventorySystem.UI.ClickAction
             return false;   
         }
 
-        public override string Name => "Equip";
-
         private void TransferItemBetweenPanels(ItemClickContext context, ContainerSlot targetSlot)
         {
-            var targetIndex = context.EndContainerPanel.GetIndexOfSlot(targetSlot);
-            var itemInTargetSlot = context.EndContainerPanel.ItemContainer.GetItem(targetIndex);
+            var targetIndex = EndPanel.GetIndexOfSlot(targetSlot);
+            var itemInTargetSlot = EndItemContainer.GetItem(targetIndex);
 
-            context.EndContainerPanel.ItemContainer.SetItem(targetIndex, context.Item);
-            context.StartContainerPanel.ItemContainer.SetItem(context.ItemIndex, itemInTargetSlot);
-
-            context.StartContainerPanel.ItemTooltip.ShowTooltip(itemInTargetSlot);
+            EndItemContainer.SetItem(targetIndex, context.Item);
+            StartItemContainer.SetItem(context.ItemIndex, itemInTargetSlot);
         }
     }
 }

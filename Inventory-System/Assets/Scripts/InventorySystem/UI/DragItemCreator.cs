@@ -12,7 +12,6 @@ namespace InventorySystem.UI
         
         public BaseItemContainerPanel InventoryPanel { get; private set; }
         public int StartIndex { get; private set; } = -1;
-        public ItemContainer ItemContainer => InventoryPanel.ItemContainer;
         public bool IsDragging => _slot.gameObject.activeSelf;
 
         public void SetData(BaseItemContainerPanel panel, Sprite itemIcon, 

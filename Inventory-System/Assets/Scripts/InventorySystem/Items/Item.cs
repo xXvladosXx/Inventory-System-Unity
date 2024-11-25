@@ -37,6 +37,25 @@ namespace InventorySystem.Items
 
             return false;
         }
+        
+        public bool TryGetProperty<TProperty>(out TProperty property) where TProperty : Property
+        {
+            property = null;
+
+            foreach (var properties in Properties.Values)
+            {
+                foreach (var existedProperty in properties)
+                {
+                    if (existedProperty.GetType() == typeof(TProperty))
+                    {
+                        property = (TProperty) existedProperty;
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
 
         public string GetPropertiesDescription()
         {
@@ -48,7 +67,10 @@ namespace InventorySystem.Items
 
                 foreach (var property in entry.Value)
                 {
-                    descriptionBuilder.AppendLine($"- {property}");
+                    if (property.ToString() == string.Empty)
+                        continue;
+                    
+                    descriptionBuilder.AppendLine($"{property}");
                 }
 
                 descriptionBuilder.AppendLine(); 

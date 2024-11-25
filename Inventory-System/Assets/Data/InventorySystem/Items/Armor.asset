@@ -60,7 +60,7 @@ MonoBehaviour:
       Data: true
     - Name: Value
       Entry: 4
-      Data: 1
+      Data: -15
     - Name: StatType
       Entry: 3
       Data: 1

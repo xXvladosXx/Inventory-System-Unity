@@ -14,6 +14,6 @@ namespace InventorySystem.Items.Properties
         public StatType StatType;
 
         public override string ToString() => 
-            $"{StatType}: {Value}";
+            Value > 0 ? $"{StatType}: +{Value}" : $"{StatType}: {Value}";
     }
 }

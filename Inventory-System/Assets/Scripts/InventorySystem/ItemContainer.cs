@@ -4,6 +4,7 @@ using System.Linq;
 using InventorySystem.Items;
 using InventorySystem.Items.Properties;
 using InventorySystem.Items.Types;
+using InventorySystem.UI.Filter;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -13,12 +14,11 @@ namespace InventorySystem
     public class ItemContainer : SerializedMonoBehaviour
     {
         [field: SerializeField] public int Size { get; private set; } = 10;
-        
         [SerializeField] private List<InventoryItem> _items = new List<InventoryItem>();
-        [SerializeField] private Item _item;
-        [SerializeField] private Item _item2;
 
-        public event Action<Dictionary<int, InventoryItem>, ItemContainer> OnItemsUpdated;
+        private ItemFilter _currentFilter;
+        public bool IsFilterActive => _currentFilter != null;
+        public event Action<ItemContainer> OnItemsUpdated;
 
         public void Initialize()
         {
@@ -39,13 +39,13 @@ namespace InventorySystem
                         amount -= AddToFirstFreeSlot(item, 1);
                     }
                     
-                    OnItemsUpdated?.Invoke(GetContainerState(), this);
+                    OnItemsUpdated?.Invoke(this);
                     return amount;
                 }
             }
             
             amount = AddStackableItem(item, amount);
-            OnItemsUpdated?.Invoke(GetContainerState(), this);
+            OnItemsUpdated?.Invoke(this);
             return amount;
         }
 
@@ -79,7 +79,7 @@ namespace InventorySystem
                     if (remainingAmount >= amount)
                     {
                         _items[i] = _items[i].ChangeAmount(_items[i].Amount + amount);
-                        OnItemsUpdated?.Invoke(GetContainerState(), this);
+                        OnItemsUpdated?.Invoke(this);
                         return 0;
                     }
                     
@@ -106,7 +106,7 @@ namespace InventorySystem
                     if (_items[i].Amount > amount)
                     {
                         _items[i] = _items[i].ChangeAmount(_items[i].Amount - amount);
-                        OnItemsUpdated?.Invoke(GetContainerState(), this);
+                        OnItemsUpdated?.Invoke(this);
                         return 0;
                     }
 
@@ -115,13 +115,13 @@ namespace InventorySystem
 
                     if (amount <= 0)
                     {
-                        OnItemsUpdated?.Invoke(GetContainerState(), this);
+                        OnItemsUpdated?.Invoke(this);
                         return 0;
                     }
                 }
             }
         
-            OnItemsUpdated?.Invoke(GetContainerState(), this);
+            OnItemsUpdated?.Invoke(this);
             return amount; 
         }
 
@@ -139,7 +139,7 @@ namespace InventorySystem
                 _items[index] = InventoryItem.CreateEmpty();
             }
 
-            OnItemsUpdated?.Invoke(GetContainerState(), this);
+            OnItemsUpdated?.Invoke(this);
         }
         
         public void RemoveItemsAtIndex(int index)
@@ -149,7 +149,7 @@ namespace InventorySystem
 
             _items[index] = InventoryItem.CreateEmpty();
 
-            OnItemsUpdated?.Invoke(GetContainerState(), this);
+            OnItemsUpdated?.Invoke(this);
         }
 
 
@@ -163,24 +163,25 @@ namespace InventorySystem
                     occupiedSlots.Add(i, _items[i]);
                 }
             }
-
-            return occupiedSlots;
-        }
-        
-        public List<InventoryItem> GetContainerStateItems()
-        {
-            List<InventoryItem> occupiedSlots = new List<InventoryItem>();
-            for (int i = 0; i < _items.Count; i++)
+            
+            if (IsFilterActive)
             {
-                if (!_items[i].IsEmpty)
-                {
-                    occupiedSlots.Add(_items[i]);
-                }
+                return _currentFilter.Filter(occupiedSlots);
             }
 
             return occupiedSlots;
         }
+        
+        public void SetFilter(ItemFilter filter)
+        {
+            _currentFilter = filter;
+        }
 
+        public void ResetFilter()
+        {
+            _currentFilter = null;
+        }
+        
         public InventoryItem GetItem(int index) => _items[index];
 
         public void AddItem(InventoryItem item) => AddItem(item.Item, item.Amount);
@@ -215,13 +216,13 @@ namespace InventorySystem
         public void SwapItems(int index1, int index2)
         {
             (_items[index1], _items[index2]) = (_items[index2], _items[index1]);
-            OnItemsUpdated?.Invoke(GetContainerState(), this);
+            OnItemsUpdated?.Invoke(this);
         }
 
         public void SetItem(int index, InventoryItem item)
         {
             _items[index] = item;
-            OnItemsUpdated?.Invoke(GetContainerState(), this);
+            OnItemsUpdated?.Invoke(this);
         }
     }
 }

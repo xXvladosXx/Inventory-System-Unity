@@ -8,7 +8,8 @@ namespace InventorySystem.UI.Slots.SlotType
 {
     public static class ConditionUtils
     {
-        public static bool HasAppropriateSlot(LevelSystem levelSystem, BaseItemContainerPanel endPanel, InventoryItem item, out ContainerSlot appropriateSlot)
+        public static bool HasAppropriateSlot(LevelSystem levelSystem, BaseItemContainerPanel endPanel,
+            ItemContainer endContainer, InventoryItem item, out ContainerSlot appropriateSlot)
         {
             var appropriateSlots = new List<ContainerSlot>();
             
@@ -24,7 +25,7 @@ namespace InventorySystem.UI.Slots.SlotType
             {
                 foreach (var slot in appropriateSlots)
                 {
-                    if (endPanel.ItemContainer.GetItem(endPanel.GetIndexOfSlot(slot)).IsEmpty)
+                    if (endContainer.GetItem(endPanel.GetIndexOfSlot(slot)).IsEmpty)
                     {
                         appropriateSlot = slot;
                         return true;

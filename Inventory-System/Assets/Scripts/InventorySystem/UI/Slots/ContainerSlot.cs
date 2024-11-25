@@ -124,11 +124,6 @@ namespace InventorySystem.UI.Slots
 
         private void OnClick()
         {
-            if (_empty)
-            {
-                return;
-            }
-            
             OnSlotClicked?.Invoke(this);
         }
 

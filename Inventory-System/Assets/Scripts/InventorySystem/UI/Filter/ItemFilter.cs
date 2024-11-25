@@ -7,6 +7,6 @@ namespace InventorySystem.UI.Filter
     [Serializable]
     public abstract class ItemFilter
     {
-        public abstract List<InventoryItem> Filter(ItemContainer itemContainer);
+        public abstract Dictionary<int, InventoryItem> Filter(Dictionary<int, InventoryItem> items);
     }
 }

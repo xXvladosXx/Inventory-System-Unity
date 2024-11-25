@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using InventorySystem.Items;
 using TMPro;
 using UnityEngine;
@@ -18,9 +19,11 @@ namespace InventorySystem.UI.Filter
             _itemType = itemType;
         }
 
-        public override List<InventoryItem> Filter(ItemContainer itemContainer)
+        public override Dictionary<int, InventoryItem> Filter(Dictionary<int, InventoryItem> items)
         {
-            return itemContainer.FilterItems(item => item.Item.ItemType == _itemType);
+            return items
+                .Where(pair => pair.Value.Item.ItemType == _itemType)
+                .ToDictionary(pair => pair.Key, pair => pair.Value);
         }
     }
 }

@@ -12,7 +12,8 @@ namespace InventorySystem.UI
         [SerializeField] private Button _leftRotate;
         
         private EquipmentPreview _model;
-        
+        private Quaternion _targetRotation;
+
         public bool IsPointerInside { get; private set; }
         public bool IsHolding { get; private set; }
 
@@ -21,13 +22,15 @@ namespace InventorySystem.UI
             _model = model;
         }
         
-        private void Update()
+        void Update()
         {
-            if (IsHolding)
+            float horizontalInput = Input.GetAxis("Mouse ScrollWheel");
+            if (Mathf.Abs(horizontalInput) > 0.01f) 
             {
-                float horizontalInput = Input.GetAxis("Mouse X");
-                _model.transform.Rotate(Vector3.up, -horizontalInput * _rotationSpeed * Time.deltaTime);
+                _targetRotation *= Quaternion.Euler(0, -horizontalInput * _rotationSpeed * Time.deltaTime, 0);
             }
+
+            _model.transform.rotation = Quaternion.Slerp(_model.transform.rotation, _targetRotation, Time.deltaTime * _rotationSpeed);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -37,6 +40,9 @@ namespace InventorySystem.UI
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            if (IsHolding)
+                return;
+            
             IsPointerInside = false;
         }
 

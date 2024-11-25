@@ -1,12 +1,21 @@
 using System;
 using InventorySystem.Items;
+using InventorySystem.Items.Types;
+using InventorySystem.UI.Panels;
 
 namespace InventorySystem.UI.ClickAction
 {
     [Serializable]
     public class UnequipClickAction : ItemClickAction
     {
-        public override bool OnActionClick(ItemClickContext context)
+        public override string Name => "Unequip";
+        public override Type ActionType => typeof(EquippableAction);
+
+        public UnequipClickAction(BaseItemContainerPanel startPanel, BaseItemContainerPanel endPanel,
+            ItemContainer startItemContainer, ItemContainer endItemContainer) 
+            : base(startPanel, endPanel, startItemContainer, endItemContainer) { }
+
+        public override bool OnActionClickSuccess(ItemClickContext context)
         {
             if (TryAddItemToEndContainer(context))
             {
@@ -17,17 +26,14 @@ namespace InventorySystem.UI.ClickAction
             return false;
         }
 
-        public override string Name => "Unequip";
-
         private bool TryAddItemToEndContainer(ItemClickContext context)
         {
-            return context.EndContainerPanel.ItemContainer.AddItem(context.Item.Item, context.Item.Amount) == 0;
+            return EndItemContainer.AddItem(context.Item.Item, context.Item.Amount) == 0;
         }
 
         private void ClearStartContainerSlot(ItemClickContext context)
         {
-            context.StartContainerPanel.ItemContainer.SetItem(context.ItemIndex, new InventoryItem());
-            context.StartContainerPanel.ItemTooltip.HideTooltip();
+            StartItemContainer.SetItem(context.ItemIndex, new InventoryItem());
         }
     }
 }

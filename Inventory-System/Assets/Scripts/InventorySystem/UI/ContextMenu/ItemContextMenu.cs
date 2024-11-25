@@ -10,9 +10,9 @@ namespace InventorySystem.UI.ContextMenu
 {
     public class ItemContextMenu : MonoBehaviour
     {
-        [SerializeField] private ItemContextOption itemContextOptionPrefab;
-        [SerializeField] private float menuAppearDuration = 0.2f;
-        [SerializeField] private float itemAppearInterval = 0.1f;
+        [SerializeField] private ItemContextOption _itemContextOptionPrefab;
+        [SerializeField] private float _menuAppearDuration = 0.2f;
+        [SerializeField] private float _itemAppearInterval = 0.1f;
         
         private readonly List<ItemContextOption> _activeOptions = new List<ItemContextOption>();
         private readonly Queue<ItemContextOption> _pool = new Queue<ItemContextOption>();
@@ -21,7 +21,7 @@ namespace InventorySystem.UI.ContextMenu
 
         private Tween _menuTween;
 
-        private void Start()
+        private void Awake()
         {
             Hide();
         }
@@ -30,11 +30,12 @@ namespace InventorySystem.UI.ContextMenu
         {
             Hide();
 
+            gameObject.SetActive(true);
             transform.position = slotPosition;
             transform.localScale = Vector3.zero;
             
             _menuTween?.Kill();
-            _menuTween = transform.DOScale(1, menuAppearDuration).SetEase(Ease.OutBack);
+            _menuTween = transform.DOScale(1, _menuAppearDuration).SetEase(Ease.OutBack);
             int index = 0;
 
             foreach (var action in actions)
@@ -48,7 +49,7 @@ namespace InventorySystem.UI.ContextMenu
                 _activeOptions.Add(option);
 
                 option.KillTweens();
-                option.AnimateAppearance(menuAppearDuration, itemAppearInterval * index);
+                option.AnimateAppearance(_menuAppearDuration, _itemAppearInterval * index);
                 index++;
             }
         }
@@ -65,9 +66,10 @@ namespace InventorySystem.UI.ContextMenu
             }
             
             _activeOptions.Clear();
+            gameObject.SetActive(false);
         }
 
         private ItemContextOption GetOrCreateOption() => 
-            _pool.Count > 0 ? _pool.Dequeue() : Instantiate(itemContextOptionPrefab, transform);
+            _pool.Count > 0 ? _pool.Dequeue() : Instantiate(_itemContextOptionPrefab, transform);
     }
 }

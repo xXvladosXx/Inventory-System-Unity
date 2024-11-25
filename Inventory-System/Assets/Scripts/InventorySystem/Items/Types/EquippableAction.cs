@@ -3,6 +3,6 @@
     [ActionType]
     public class EquippableAction : ActionType
     {
-        public override string ToString() => "Equippable";
+        public override string ToString() => "After Equip";
     }
 }

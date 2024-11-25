@@ -6,7 +6,7 @@ namespace InventorySystem.UI.Panels
 {
     public class ConstantSlotsPanel : BaseItemContainerPanel
     {
-        protected override void InitializeSlots()
+        protected override void InitializeSlots(int size)
         {
             foreach (var slot in slots)
             {

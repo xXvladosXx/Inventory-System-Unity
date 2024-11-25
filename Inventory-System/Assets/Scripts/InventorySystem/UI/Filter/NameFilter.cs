@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using InventorySystem.Items;
 using TMPro;
 using UnityEngine;
@@ -18,9 +19,11 @@ namespace InventorySystem.UI.Filter
             _searchTerm = searchTerm.ToLower();
         }
 
-        public override List<InventoryItem> Filter(ItemContainer itemContainer)
+        public override Dictionary<int, InventoryItem> Filter(Dictionary<int, InventoryItem> items)
         {
-            return itemContainer.FilterItems(item => item.Item.Name.ToLower().Contains(_searchTerm));
+            return items
+                .Where(pair => pair.Value.Item.Name.ToLower().Contains(_searchTerm))
+                .ToDictionary(pair => pair.Key, pair => pair.Value);
         }
     }
 }

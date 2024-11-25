@@ -3,6 +3,6 @@
     [ActionType]
     public class ConsumableAction : ActionType
     {
-        public override string ToString() => "Consumable";
+        public override string ToString() => "After Consume";
     }
 }
