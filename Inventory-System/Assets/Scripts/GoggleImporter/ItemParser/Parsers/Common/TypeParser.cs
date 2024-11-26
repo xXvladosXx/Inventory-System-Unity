@@ -12,7 +12,7 @@ namespace GoggleImporter.ItemParser.Parsers.Common
         public override Property Property { get; }
         public override string PropertyType => "Type";
 
-        private readonly Dictionary<string, Type> ActionTypeMapping = new Dictionary<string, Type>();
+        private readonly Dictionary<string, Type> _actionTypeMapping = new Dictionary<string, Type>();
 
         public override void Parse(string token, ItemSettings itemSettings)
         {
@@ -22,10 +22,10 @@ namespace GoggleImporter.ItemParser.Parsers.Common
 
             foreach (var type in types)
             {
-                ActionTypeMapping[type.Name] = type;
+                _actionTypeMapping[type.Name] = type;
             }
             
-            if (ActionTypeMapping.TryGetValue(token, out var parsedType))
+            if (_actionTypeMapping.TryGetValue(token, out var parsedType))
             {
                 var actionTypeInstance = (ActionType)Activator.CreateInstance(parsedType);
                 itemSettings.SetCurrentType(actionTypeInstance);

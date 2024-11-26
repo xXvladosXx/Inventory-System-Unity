@@ -23,6 +23,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 62c4a38746a6e5b4cbdc3355f19b27d2, type: 2}
     - {fileID: 11400000, guid: 01001b4f5b6be5b4ebb7748516f7e1aa, type: 2}
     - {fileID: 11400000, guid: 9ec0672d5cf821542951d1c5c1c7d12c, type: 2}
+    - {fileID: 11400000, guid: c1870c64d3d6b16449e252a5c4bc7539, type: 2}
     - {fileID: 11400000, guid: f17908721cd0ba64984d08fd91ae32c0, type: 2}
     - {fileID: 11400000, guid: e325870d3d5314c409bea5595ca68315, type: 2}
     - {fileID: 11400000, guid: d35050a51c9b7fa469b290db118b1c34, type: 2}
@@ -47,7 +48,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 13
+      Data: 14
     - Name: 
       Entry: 7
       Data: 
@@ -137,7 +138,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 10
+      Data: 17
     - Name: $v
       Entry: 10
       Data: 7
@@ -149,7 +150,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 15
+      Data: 10
     - Name: $v
       Entry: 10
       Data: 8
@@ -161,7 +162,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 11
+      Data: 15
     - Name: $v
       Entry: 10
       Data: 9
@@ -173,7 +174,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 12
+      Data: 11
     - Name: $v
       Entry: 10
       Data: 10
@@ -185,7 +186,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 13
+      Data: 12
     - Name: $v
       Entry: 10
       Data: 11
@@ -197,10 +198,22 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 2
+      Data: 13
     - Name: $v
       Entry: 10
       Data: 12
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 13
     - Name: 
       Entry: 8
       Data: 
@@ -223,7 +236,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 13
+      Data: 14
     - Name: 
       Entry: 7
       Data: 
@@ -313,7 +326,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Pants
+      Data: King Slayer
     - Name: $v
       Entry: 10
       Data: 7
@@ -325,7 +338,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Potion
+      Data: Pants
     - Name: $v
       Entry: 10
       Data: 8
@@ -337,7 +350,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Ring1
+      Data: Potion
     - Name: $v
       Entry: 10
       Data: 9
@@ -349,7 +362,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Ring2
+      Data: Ring1
     - Name: $v
       Entry: 10
       Data: 10
@@ -361,7 +374,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Shoulders
+      Data: Ring2
     - Name: $v
       Entry: 10
       Data: 11
@@ -373,10 +386,22 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Sword
+      Data: Shoulders
     - Name: $v
       Entry: 10
       Data: 12
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Sword
+    - Name: $v
+      Entry: 10
+      Data: 13
     - Name: 
       Entry: 8
       Data: 
@@ -386,4 +411,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  _lastID: 17
+  _lastID: 18

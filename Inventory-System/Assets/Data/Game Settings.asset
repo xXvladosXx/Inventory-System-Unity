@@ -23,7 +23,7 @@ MonoBehaviour:
     SerializationNodes: []
   ItemDatabase: {fileID: 11400000, guid: 4a5181feab2da5545811aa318aee39f9, type: 2}
   Items:
-  - Name: Sword
+  - Name: King Slayer
     IsStackable: 0
     MaxInStack: 1
     ItemType: 0
