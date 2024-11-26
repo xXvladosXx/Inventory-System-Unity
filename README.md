@@ -1,11 +1,9 @@
 # Goggle Inventory Importer
 
-## Overview
-**Goggle Inventory Importer** is a Unity tool to import and parse Google Sheets data into a Unity project. It is primarily designed for game settings like inventory items and properties, utilizing the **Google Sheets API**. The project parses Google Sheets and imports inventory data directly into your game settings.
+**Goggle Inventory Importer** is a Unity tool designed to integrate **Google Sheets** data directly into your Unity project. It provides functionality to parse and import game settings, such as inventory items and their properties, using the **Google Sheets API**. This tool streamlines the setup of game inventories by eliminating the need for manual entry of item data.
 
----
+## Key Features
 
-## Features
 - **Imports inventory items** from a Google Sheets document.
 - Supports **parsing of properties**, including equippable items and constant stats.
 - Uses **reflection** to dynamically load parsers.
@@ -13,10 +11,66 @@
 
 ---
 
+## Example Usage: `InventoryController`
+
+![image](https://github.com/user-attachments/assets/c9d98e74-6b41-47ff-983a-72c7d4fad191)
+
+The `InventoryController` script showcases advanced inventory management capabilities within Unity.
+
+### Features
+
+- **Inventory Panels**  
+  Manages different inventory UI panels, such as:
+  - Equipment Panel
+  - Inventory Panel
+  - Loot Panel
+
+- **Tooltips and Context Menus**  
+  Provides item details and action menus based on user interaction.
+
+- **Item Actions**  
+  Supports contextual actions like:
+  - Equipping
+  - Consuming
+  - Transferring
+  - Unequipping
+
+- **Loot Containers**  
+  Handles dynamic loot containers and their associated UI.
+
+- **Stat Collection**  
+  Aggregates and applies item stats to the player or other game entities.
+
+- **Event Handling**  
+  Centralized management of user interactions, including dragging, clicking, and filtering.
+
+---
+
+### Advanced Features
+
+- **Drag-and-Drop UI**  
+  Facilitates smooth drag-and-drop functionality for inventory items.
+
+- **Dynamic Filtering**  
+  Supports real-time search and filtering based on:
+  - Item types
+  - Item names
+
+- **Panels Management**  
+  Automatically opens and closes inventory panels, efficiently handling their lifecycle.
+
+- **Modular Design**  
+  Actions like equipping and transferring are encapsulated in reusable classes such as:
+  - `EquipClickAction`
+  - `TransferClickAction`
+
+---
+
 ## Requirements
 - **Unity 2020.3** or later.
 - **Google Sheets API** credentials.
 - Basic knowledge of Unity Editor scripting.
+- Odin Inspector.
 
 ---
 
@@ -39,7 +93,7 @@
 
 ---
 
-## Code Structure
+## Inventory Importer Code Structure
 
 ### 1. **ConfigImportsMenu.cs**
    This class manages the import process via Unity Editor's menu options. It imports both **inventory items** and **property names** from Google Sheets.
@@ -91,13 +145,13 @@ public enum PropertyType
 ```
 
 ### Step 2: Create Property Actions
-Define your property types in the `ActionType` enum:
+`ActionType` is an abstract base class, and specific actions are implemented as derived classes. The use of a custom `ActionTypeAttribute` ensures flexibility for metadata or runtime reflection.
 
 ```csharp
-public enum ActionType 
+[ActionType]
+public class EquippableAction : ActionType
 {
-   ConsumableAction,
-   EquippableAction
+    public override string ToString() => "After Equip";
 }
 ```
 
@@ -109,6 +163,8 @@ public class EquippableProperty : Property
 {
     public override PropertyType PropertyType => PropertyType.EquippableProperty;
     public EquipType EquipType;
+    public int Level;
+    public override string ToString() => string.Empty;
 }
 ```
 
@@ -120,36 +176,33 @@ public class EquippablePropertyParser : BaseParser, IPropertySetter
 {
     public override Property Property => new EquippableProperty();
     public override string PropertyType => Property.PropertyType.ToString();
-
     public override void Parse(string token, ItemSettings itemSettings)
     {
         if (string.IsNullOrEmpty(token)) return;
-
         var propertyParts = token.Split(';');
-        if (propertyParts.Length < 1)
+        var equipTypeValue = propertyParts[0];
+        var levelValue = propertyParts.Length > 1 ? propertyParts[1] : "0";
+        if (!Enum.TryParse(equipTypeValue, out EquipType equipType))
         {
-            Debug.LogError($"Invalid format for EquippableProperty: {token}");
+            Debug.LogError($"Invalid EquipType for EquippableProperty: {equipTypeValue}");
             return;
         }
-
-        var propertyValue = propertyParts[0];
-
         var property = new EquippableProperty
         {
-            EquipType = (EquipType) Enum.Parse(typeof(EquipType), propertyValue)
+            EquipType = equipType,
+            Level = int.TryParse(levelValue, out int level) ? level : 0
         };
-
-        if (itemSettings.CurrentType.HasValue)
+        if (itemSettings.CurrentType != null)
         {
-            itemSettings.EquipProperties.Add(new ActionTypeToEquipProperty
+            itemSettings.AllProperties.Add(new ActionTypeToEquipProperty
             {
-                ActionType = itemSettings.CurrentType.Value,
+                ActionType = itemSettings.CurrentType,
                 EquipProperty = property
             });
         }
         else
         {
-            Debug.LogError("No type set for EquippableProperty. Item " + itemSettings.Name);
+            Debug.LogWarning($"No type set for EquippableProperty. Default Level: {property.Level}. Item: {itemSettings.Name}");
         }
     }
 }
@@ -168,42 +221,22 @@ public class ActionTypeToEquipProperty : IActionTypeToProperty
 }
 ```
 
-### Step 6: Create ItemSettings Class
-Define your `ItemSettings` class to hold the properties:
-
-```csharp
-[Serializable]
-public class ItemSettings
-{
-    public string Name;
-    public bool IsStackable;
-    public int MaxInStack;
-    
-    public ActionType? CurrentType { get; private set; }
-    public List<ActionTypeToConstantStatProperty> ConstantStatsProperties = new List<ActionTypeToConstantStatProperty>();
-    public List<ActionTypeToEquipProperty> EquipProperties = new List<ActionTypeToEquipProperty>();
-    public void SetCurrentType(ActionType actionType)
-    {
-        CurrentType = actionType;
-    }
-}
-```
 
 ## Example Sheet Structure
 
 For the importer to work correctly, your Google Sheet should have the following structure:
 
-![image](https://github.com/user-attachments/assets/3eb64731-b56a-4ad6-aa9e-3ebd0a2fd472)
-![image](https://github.com/user-attachments/assets/410cb02b-b780-4265-b510-46f24f9b933a)
+![image](https://github.com/user-attachments/assets/9aacd5a4-a6f0-48d2-be53-b42970755c65)
+![image](https://github.com/user-attachments/assets/0e4dd6ee-46fb-42df-9af4-c2f2fbe58e1d)
+
 
 - **Item Name**: The name of the item.
 - **Is Stackable**: The stack of the item.
 - **Stack Size**: The size of the stack.
-- **Type**: Specifies the property type (e.g., Equippable, Consumable).
-- **EquipType**: Only used for equippable items, specifies the type of equipment.
+- **Type**: Specifies the property type action (e.g., Equippable, Consumable).
+- **EquipType**: Only used for equippable items, specifies the type of equipment, level requirements.
 - **StatType**: The stat affected by the item.
-- **Value**: The stat's value (for consumable items).
-
+- **ItemType**: The type of the item, if no equippable property was found.
 ---
 
 ## Contributing
