@@ -162,7 +162,7 @@ Create a property parser that inherits from `BaseParser`. This allows values to 
 ```csharp
 public class EquippablePropertyParser : BaseParser, IPropertySetter
 {
-    public override string PropertyType => nameof(ConstantStatProperty);
+    public override string PropertyType => nameof(EquippableProperty);
 
     public override void Parse(string token, ItemSettings itemSettings)
     {
