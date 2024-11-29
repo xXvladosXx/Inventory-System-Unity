@@ -9,7 +9,6 @@ namespace InventorySystem.Items.Properties
     [Serializable]
     public abstract class Property
     {
-        public virtual PropertyType PropertyType { get; }
         public bool ResetableOnImport = true;
     }
 }

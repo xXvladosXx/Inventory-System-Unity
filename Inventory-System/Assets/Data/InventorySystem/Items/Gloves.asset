@@ -101,5 +101,5 @@ MonoBehaviour:
   <Name>k__BackingField: Gloves
   <IsStackable>k__BackingField: 0
   <MaxInStack>k__BackingField: 1
-  <ItemType>k__BackingField: 2
+  <ItemType>k__BackingField: 0
   <Icon>k__BackingField: {fileID: 21300000, guid: 4534d6bc204de2e499d251a94190c25d, type: 3}

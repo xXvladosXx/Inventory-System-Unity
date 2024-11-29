@@ -5,7 +5,6 @@ namespace GoggleImporter.ItemParser.Parsers.Common
 {
     public class StackSizeParser : BaseParser
     {
-        public override Property Property { get; }
         public override string PropertyType => "StackSize";
 
         public override void Parse(string token, ItemSettings itemSettings)

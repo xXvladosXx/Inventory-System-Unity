@@ -5,7 +5,6 @@ namespace GoggleImporter.ItemParser.Parsers
 {
     public class DefaultParser : BaseParser
     {
-        public override Property Property { get; }
         public override string PropertyType => "UnknownHeader"; 
 
         public override void Parse(string token, ItemSettings itemSettings)

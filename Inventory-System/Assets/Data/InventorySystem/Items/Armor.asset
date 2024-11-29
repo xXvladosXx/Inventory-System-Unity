@@ -101,5 +101,5 @@ MonoBehaviour:
   <Name>k__BackingField: Armor
   <IsStackable>k__BackingField: 0
   <MaxInStack>k__BackingField: 1
-  <ItemType>k__BackingField: 2
+  <ItemType>k__BackingField: 0
   <Icon>k__BackingField: {fileID: 21300000, guid: fb282987f1a8d854abe31fdea956eb6d, type: 3}

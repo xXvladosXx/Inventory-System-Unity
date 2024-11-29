@@ -37,7 +37,7 @@ namespace GoggleImporter.ItemParser.PropertySetters
                 {
                     var elementType = field.FieldType.GetGenericArguments()[0];
 
-                    if (typeof(IActionTypeToProperty).IsAssignableFrom(elementType))
+                    if (typeof(ActionTypeToProperty).IsAssignableFrom(elementType))
                     {
                         var list = (IEnumerable)field.GetValue(itemSettings);
 
@@ -45,7 +45,7 @@ namespace GoggleImporter.ItemParser.PropertySetters
 
                         foreach (var propertyWithType in list)
                         {
-                            var typedProperty = (IActionTypeToProperty)propertyWithType;
+                            var typedProperty = (ActionTypeToProperty)propertyWithType;
 
                             if (typedProperty.Property is { } property)
                             {

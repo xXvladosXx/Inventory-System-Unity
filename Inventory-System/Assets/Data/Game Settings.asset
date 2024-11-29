@@ -30,39 +30,39 @@ MonoBehaviour:
   - Name: Helmet
     IsStackable: 0
     MaxInStack: 1
-    ItemType: 2
+    ItemType: 0
   - Name: Armor
     IsStackable: 0
     MaxInStack: 1
-    ItemType: 2
+    ItemType: 0
   - Name: Shoulders
     IsStackable: 0
     MaxInStack: 1
-    ItemType: 2
+    ItemType: 0
   - Name: Pants
     IsStackable: 0
     MaxInStack: 1
-    ItemType: 2
+    ItemType: 0
   - Name: Boots
     IsStackable: 0
     MaxInStack: 1
-    ItemType: 2
+    ItemType: 0
   - Name: Bracers
     IsStackable: 0
     MaxInStack: 1
-    ItemType: 2
+    ItemType: 0
   - Name: Gloves
     IsStackable: 0
     MaxInStack: 1
-    ItemType: 2
+    ItemType: 0
   - Name: Ring1
     IsStackable: 0
     MaxInStack: 1
-    ItemType: 2
+    ItemType: 0
   - Name: Ring2
     IsStackable: 0
     MaxInStack: 1
-    ItemType: 2
+    ItemType: 0
   - Name: Bow
     IsStackable: 0
     MaxInStack: 1

@@ -12,8 +12,7 @@ namespace GoggleImporter.ItemParser.Parsers.Stats
 {
     public class ConstantStatPropertyParser : BaseParser, IPropertySetter
     {
-        public override Property Property => new ConstantStatProperty();
-        public override string PropertyType => Property.PropertyType.ToString();
+        public override string PropertyType => nameof(ConstantStatProperty);
 
         public override void Parse(string token, ItemSettings itemSettings)
         {
@@ -39,10 +38,10 @@ namespace GoggleImporter.ItemParser.Parsers.Stats
 
                 if (itemSettings.CurrentType != null)
                 {
-                    itemSettings.AllProperties.Add(new ActionTypeToConstantStatProperty
+                    itemSettings.AllProperties.Add(new ActionTypeToProperty()
                     {
                         ActionType = itemSettings.CurrentType,
-                        ConstantStat = property
+                        Property = property
                     });
                 }
                 else

@@ -9,7 +9,6 @@ namespace GoggleImporter.ItemParser.Parsers.Common
 {
     public class TypeParser : BaseParser
     {
-        public override Property Property { get; }
         public override string PropertyType => "Type";
 
         private readonly Dictionary<string, Type> _actionTypeMapping = new Dictionary<string, Type>();

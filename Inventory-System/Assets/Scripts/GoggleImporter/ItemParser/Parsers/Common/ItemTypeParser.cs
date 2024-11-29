@@ -7,7 +7,6 @@ namespace GoggleImporter.ItemParser.Parsers.Common
 {
     public class ItemTypeParser : BaseParser
     {
-        public override Property Property { get; }
         public override string PropertyType => "ItemType";
         public override void Parse(string token, ItemSettings itemSettings)
         {

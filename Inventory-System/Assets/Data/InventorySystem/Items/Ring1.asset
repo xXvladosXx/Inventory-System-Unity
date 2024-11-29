@@ -101,5 +101,5 @@ MonoBehaviour:
   <Name>k__BackingField: Ring1
   <IsStackable>k__BackingField: 0
   <MaxInStack>k__BackingField: 1
-  <ItemType>k__BackingField: 2
+  <ItemType>k__BackingField: 0
   <Icon>k__BackingField: {fileID: 21300000, guid: c82ba00115b0fc24b9ba1015900b31d4, type: 3}

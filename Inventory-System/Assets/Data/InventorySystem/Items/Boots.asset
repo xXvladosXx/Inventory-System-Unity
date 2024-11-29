@@ -101,5 +101,5 @@ MonoBehaviour:
   <Name>k__BackingField: Boots
   <IsStackable>k__BackingField: 0
   <MaxInStack>k__BackingField: 1
-  <ItemType>k__BackingField: 2
+  <ItemType>k__BackingField: 0
   <Icon>k__BackingField: {fileID: 21300000, guid: 88e934221cc793949b1536ca0d2cc119, type: 3}

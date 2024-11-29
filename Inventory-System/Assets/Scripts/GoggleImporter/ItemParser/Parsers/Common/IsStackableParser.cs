@@ -4,7 +4,6 @@ namespace GoggleImporter.ItemParser.Parsers.Common
 {
     public class IsStackableParser : BaseParser
     {
-        public override Property Property { get; }
         public override string PropertyType => "IsStackable";
 
         public override void Parse(string token, ItemSettings itemSettings)

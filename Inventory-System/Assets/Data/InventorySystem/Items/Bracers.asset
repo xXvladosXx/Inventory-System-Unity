@@ -101,5 +101,5 @@ MonoBehaviour:
   <Name>k__BackingField: Bracers
   <IsStackable>k__BackingField: 0
   <MaxInStack>k__BackingField: 1
-  <ItemType>k__BackingField: 2
+  <ItemType>k__BackingField: 0
   <Icon>k__BackingField: {fileID: 21300000, guid: 165b78b91767f78409a527d4f93b7e7b, type: 3}

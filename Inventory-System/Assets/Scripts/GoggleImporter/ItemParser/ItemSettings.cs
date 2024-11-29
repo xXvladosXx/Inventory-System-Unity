@@ -21,7 +21,7 @@ namespace GoggleImporter.ItemParser
 
         public ActionType CurrentType { get; private set; }
 
-        public List<IActionTypeToProperty> AllProperties = new List<IActionTypeToProperty>();
+        public List<ActionTypeToProperty> AllProperties = new List<ActionTypeToProperty>();
 
         public void SetCurrentType(ActionType actionType)
         {
