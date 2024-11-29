@@ -133,18 +133,7 @@ public void ParseSheet(List<string> headers, IList<object> tokens)
 
 ## How to Use
 
-### Step 1: Create Property Types
-Define your property types in the `PropertyType` enum:
-
-```csharp
-public enum PropertyType 
-{
-    ConstantStatProperty,
-    EquippableProperty
-}
-```
-
-### Step 2: Create Property Actions
+### Step 1: Create Property Actions
 `ActionType` is an abstract base class, and specific actions are implemented as derived classes. The use of a custom `ActionTypeAttribute` ensures flexibility for metadata or runtime reflection.
 
 ```csharp
@@ -155,27 +144,26 @@ public class EquippableAction : ActionType
 }
 ```
 
-### Step 3: Create Property Class
-Create a property class that inherits from `Property` and set the property type with all neccesary data:
+### Step 2: Create Property Class
+Create a property class that inherits from `Property` and set the property type with all neccesary data, **remember to set the same name of class as in your sheet`s property**:
 
 ```csharp
 public class EquippableProperty : Property
 {
-    public override PropertyType PropertyType => PropertyType.EquippableProperty;
     public EquipType EquipType;
     public int Level;
     public override string ToString() => string.Empty;
 }
 ```
 
-### Step 4: Create Property Parser
+### Step 3: Create Property Parser
 Create a property parser that inherits from `BaseParser`. This allows values to be set from Google Sheets and not just from the editor:
 
 ```csharp
 public class EquippablePropertyParser : BaseParser, IPropertySetter
 {
-    public override Property Property => new EquippableProperty();
-    public override string PropertyType => Property.PropertyType.ToString();
+    public override string PropertyType => nameof(ConstantStatProperty);
+
     public override void Parse(string token, ItemSettings itemSettings)
     {
         if (string.IsNullOrEmpty(token)) return;
@@ -194,10 +182,10 @@ public class EquippablePropertyParser : BaseParser, IPropertySetter
         };
         if (itemSettings.CurrentType != null)
         {
-            itemSettings.AllProperties.Add(new ActionTypeToEquipProperty
+            itemSettings.AllProperties.Add(new ActionTypeToProperty()
             {
                 ActionType = itemSettings.CurrentType,
-                EquipProperty = property
+                Property = property
             });
         }
         else
@@ -207,20 +195,6 @@ public class EquippablePropertyParser : BaseParser, IPropertySetter
     }
 }
 ```
-
-### Step 5: Create a Type Wrapper
-Define a class that acts as a wrapper for your property type to action:
-
-```csharp
-[Serializable]
-public class ActionTypeToEquipProperty : IActionTypeToProperty
-{
-    [field: SerializeField] public ActionType ActionType { get; set; }
-    [field: SerializeField] public EquippableProperty EquipProperty { get; set; }
-    public Property Property => EquipProperty;
-}
-```
-
 
 ## Example Sheet Structure
 
