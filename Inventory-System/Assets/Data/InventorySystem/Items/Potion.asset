@@ -24,12 +24,12 @@ MonoBehaviour:
     - Name: <Properties>k__BackingField
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[InventorySystem.Items.Types.ActionType,
-        Assembly-CSharp],[System.Collections.Generic.List`1[[InventorySystem.Items.Properties.Property,
-        Assembly-CSharp]], mscorlib]], mscorlib
+        Runtime],[System.Collections.Generic.List`1[[InventorySystem.Items.Properties.Property,
+        Runtime]], mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
       Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[InventorySystem.Items.Types.ActionType,
-        Assembly-CSharp]], mscorlib
+        Runtime]], mscorlib
     - Name: 
       Entry: 8
       Data: 
@@ -48,7 +48,7 @@ MonoBehaviour:
     - Name: $v
       Entry: 7
       Data: 3|System.Collections.Generic.List`1[[InventorySystem.Items.Properties.Property,
-        Assembly-CSharp]], mscorlib
+        Runtime]], mscorlib
     - Name: 
       Entry: 12
       Data: 1

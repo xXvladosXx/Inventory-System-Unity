@@ -37,8 +37,8 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <IDsItemsDictionary>k__BackingField
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[InventorySystem.Items.Item,
-        Assembly-CSharp]], mscorlib
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[GoggleImporter.Runtime.ItemParser.Property.IParsableItem,
+        Runtime]], mscorlib
     - Name: comparer
       Entry: 7
       Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
@@ -225,8 +225,8 @@ MonoBehaviour:
       Data: 
     - Name: <NameItemsDictionary>k__BackingField
       Entry: 7
-      Data: 2|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[InventorySystem.Items.Item,
-        Assembly-CSharp]], mscorlib
+      Data: 2|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[GoggleImporter.Runtime.ItemParser.Property.IParsableItem,
+        Runtime]], mscorlib
     - Name: comparer
       Entry: 7
       Data: 3|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
