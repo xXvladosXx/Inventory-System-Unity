@@ -160,11 +160,11 @@ public class EquippableProperty : Property
 Create a property parser that inherits from `BaseParser`. This allows values to be set from Google Sheets and not just from the editor:
 
 ```csharp
-public class EquippablePropertyParser : BaseParser, IPropertySetter
+public class EquippablePropertyParser : PropertyParser<ItemParsableData>
 {
     public override string PropertyType => nameof(EquippableProperty);
 
-    public override void Parse(string token, ItemSettings itemSettings)
+    public override void Parse(string token, ItemParsableData itemParsableSettings)
     {
         if (string.IsNullOrEmpty(token)) return;
         var propertyParts = token.Split(';');
@@ -184,7 +184,7 @@ public class EquippablePropertyParser : BaseParser, IPropertySetter
         {
             itemSettings.AllProperties.Add(new ActionTypeToProperty()
             {
-                ActionType = itemSettings.CurrentType,
+                ActionType = itemParsableSettings.CurrentType,
                 Property = property
             });
         }
