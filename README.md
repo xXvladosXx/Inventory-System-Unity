@@ -13,7 +13,11 @@
 
 ## Example Usage: `InventoryController`
 
-![image](https://github.com/user-attachments/assets/c9d98e74-6b41-47ff-983a-72c7d4fad191)
+
+
+https://github.com/user-attachments/assets/c1290cbe-2085-47f3-8c58-90c3e95f3b64
+
+
 
 The `InventoryController` script showcases advanced inventory management capabilities within Unity.
 
