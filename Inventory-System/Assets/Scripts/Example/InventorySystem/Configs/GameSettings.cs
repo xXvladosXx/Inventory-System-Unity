@@ -32,7 +32,7 @@ namespace Example.InventorySystem.Configs
 
             foreach (var itemSettings in Items)
             {
-                var item = ItemDatabase.FindItemByName(itemSettings.Name);
+                var item = ItemDatabase.FindItemById(itemSettings.Id);
                 if (item == null)
                 {
                     Debug.LogWarning($"Item with name {itemSettings.Name} not found in the project. Creating new item.");
@@ -52,6 +52,7 @@ namespace Example.InventorySystem.Configs
 
         private void UpdateItemProperties(Item item, ItemParsableData itemParsableSettings)
         {
+            item.ID = itemParsableSettings.Id;
             item.Name = itemParsableSettings.Name;
             item.IsStackable = itemParsableSettings.IsStackable;
             item.MaxInStack = itemParsableSettings.MaxInStack;

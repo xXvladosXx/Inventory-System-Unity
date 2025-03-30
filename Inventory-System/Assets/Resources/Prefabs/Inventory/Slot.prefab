@@ -143,15 +143,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 99
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 85dbfce2224cea5419d1d3ddbcd6d4bc, type: 2}
+  m_sharedMaterial: {fileID: -7308853940465926632, guid: 85dbfce2224cea5419d1d3ddbcd6d4bc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4283459714
-  m_fontColor: {r: 0.50980395, g: 0.40784314, b: 0.3137255, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.6
+  m_fontSize: 31.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -311,7 +311,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _conditions
       Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[InventorySystem.UI.Common.SlotCondition,
+      Data: 0|System.Collections.Generic.List`1[[InventorySystem.UI.Slots.SlotType.SlotCondition,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12

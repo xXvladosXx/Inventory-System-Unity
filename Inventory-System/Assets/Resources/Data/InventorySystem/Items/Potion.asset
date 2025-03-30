@@ -23,12 +23,12 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <Properties>k__BackingField
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[InventorySystem.Items.Types.ActionType,
-        Runtime],[System.Collections.Generic.List`1[[InventorySystem.Items.Properties.Property,
+      Data: 0|System.Collections.Generic.Dictionary`2[[GoggleImporter.Runtime.ItemParser.Types.ActionType,
+        Runtime],[System.Collections.Generic.List`1[[GoggleImporter.Runtime.ItemParser.Property.Property,
         Runtime]], mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[InventorySystem.Items.Types.ActionType,
+      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[GoggleImporter.Runtime.ItemParser.Types.ActionType,
         Runtime]], mscorlib
     - Name: 
       Entry: 8
@@ -47,7 +47,7 @@ MonoBehaviour:
       Data: 
     - Name: $v
       Entry: 7
-      Data: 3|System.Collections.Generic.List`1[[InventorySystem.Items.Properties.Property,
+      Data: 3|System.Collections.Generic.List`1[[GoggleImporter.Runtime.ItemParser.Property.Property,
         Runtime]], mscorlib
     - Name: 
       Entry: 12
@@ -82,8 +82,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  <ID>k__BackingField: 15
-  <Name>k__BackingField: Potion
+  <ID>k__BackingField: 11
+  <Name>k__BackingField: Elixir of Vitality
   <IsStackable>k__BackingField: 1
   <MaxInStack>k__BackingField: 15
   <ItemType>k__BackingField: 1

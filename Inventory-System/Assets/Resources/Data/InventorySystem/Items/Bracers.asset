@@ -23,12 +23,12 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <Properties>k__BackingField
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[InventorySystem.Items.Types.ActionType,
-        Runtime],[System.Collections.Generic.List`1[[InventorySystem.Items.Properties.Property,
+      Data: 0|System.Collections.Generic.Dictionary`2[[GoggleImporter.Runtime.ItemParser.Types.ActionType,
+        Runtime],[System.Collections.Generic.List`1[[GoggleImporter.Runtime.ItemParser.Property.Property,
         Runtime]], mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[InventorySystem.Items.Types.ActionType,
+      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[GoggleImporter.Runtime.ItemParser.Types.ActionType,
         Runtime]], mscorlib
     - Name: 
       Entry: 8
@@ -47,11 +47,11 @@ MonoBehaviour:
       Data: 
     - Name: $v
       Entry: 7
-      Data: 3|System.Collections.Generic.List`1[[InventorySystem.Items.Properties.Property,
+      Data: 3|System.Collections.Generic.List`1[[GoggleImporter.Runtime.ItemParser.Property.Property,
         Runtime]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 4
     - Name: 
       Entry: 7
       Data: 4|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
@@ -60,7 +60,7 @@ MonoBehaviour:
       Data: true
     - Name: Value
       Entry: 4
-      Data: 1
+      Data: -15
     - Name: StatType
       Entry: 3
       Data: 1
@@ -83,6 +83,36 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 6|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
+    - Name: ResetableOnImport
+      Entry: 5
+      Data: true
+    - Name: Value
+      Entry: 4
+      Data: 1
+    - Name: StatType
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 7|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
+    - Name: ResetableOnImport
+      Entry: 5
+      Data: true
+    - Name: Value
+      Entry: 4
+      Data: -5
+    - Name: StatType
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -97,8 +127,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  <ID>k__BackingField: 8
-  <Name>k__BackingField: Bracers
+  <ID>k__BackingField: 6
+  <Name>k__BackingField: Wristguards of Might
   <IsStackable>k__BackingField: 0
   <MaxInStack>k__BackingField: 1
   <ItemType>k__BackingField: 0

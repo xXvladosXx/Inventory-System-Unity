@@ -2,6 +2,7 @@
 using InventorySystem.Items;
 using InventorySystem.Items.Properties;
 using InventorySystem.Items.Types;
+using InventorySystem.UI.Slots;
 using TMPro;
 using UnityEngine;
 
@@ -30,7 +31,7 @@ namespace InventorySystem.UI
             _canvasGroup.alpha = 0; 
         }
 
-        public void ShowTooltip(InventoryItem inventoryItem)
+        public void ShowTooltip(InventoryItem inventoryItem, string requirements)
         {
             _fadeTween?.Kill();
 
@@ -46,9 +47,9 @@ namespace InventorySystem.UI
             _itemCathegory.text = inventoryItem.Item.TryGetProperty<EquippableProperty>(out var equippableProperty) 
                 ? equippableProperty.EquipType.ToString() : inventoryItem.Item.ItemType.ToString();
 
-            if (equippableProperty != null && equippableProperty.Level != 0)
+            if (requirements != "")
             {
-                _itemRequirements.text = $"Requires Level: {equippableProperty.Level}";
+                _itemRequirements.text = requirements;
                 _itemRequirements.gameObject.SetActive(true);
             }
             else

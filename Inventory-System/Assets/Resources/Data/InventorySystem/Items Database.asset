@@ -16,9 +16,9 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 231fb3c2ffd9fb041962fa09b9fb6c76, type: 2}
     - {fileID: 11400000, guid: df3c98997d05a4f4baae05eacde57fd6, type: 2}
     - {fileID: 11400000, guid: 0a9903b64f4882945b54303f5ed91c13, type: 2}
+    - {fileID: 11400000, guid: ecbda37c72afc8346bcafb480fbaef10, type: 2}
     - {fileID: 11400000, guid: 67e57e7607ff074408cfa11d5eb709a2, type: 2}
     - {fileID: 11400000, guid: 62c4a38746a6e5b4cbdc3355f19b27d2, type: 2}
     - {fileID: 11400000, guid: 01001b4f5b6be5b4ebb7748516f7e1aa, type: 2}
@@ -29,7 +29,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: d35050a51c9b7fa469b290db118b1c34, type: 2}
     - {fileID: 11400000, guid: 17795a3d3a7613749bc26549da2b5efc, type: 2}
     - {fileID: 11400000, guid: ceb26ba7664454044834d7cf046c5213, type: 2}
-    - {fileID: 11400000, guid: c9f8cdc1e7b49fe47bda0f87b8998c2a, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -37,7 +36,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: <IDsItemsDictionary>k__BackingField
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[GoggleImporter.Runtime.ItemParser.Property.IParsableItem,
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[GoggleImporter.Runtime.ItemParser.Item.IParsableItem,
         Runtime]], mscorlib
     - Name: comparer
       Entry: 7
@@ -48,13 +47,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 14
+      Data: 13
     - Name: 
       Entry: 7
       Data: 
     - Name: $k
       Entry: 3
-      Data: 3
+      Data: 2
     - Name: $v
       Entry: 10
       Data: 0
@@ -66,7 +65,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 14
+      Data: 5
     - Name: $v
       Entry: 10
       Data: 1
@@ -78,7 +77,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 6
+      Data: 12
     - Name: $v
       Entry: 10
       Data: 2
@@ -90,7 +89,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 7
+      Data: 10
     - Name: $v
       Entry: 10
       Data: 3
@@ -102,7 +101,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 8
+      Data: 6
     - Name: $v
       Entry: 10
       Data: 4
@@ -114,7 +113,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 9
+      Data: 7
     - Name: $v
       Entry: 10
       Data: 5
@@ -138,7 +137,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 18
+      Data: 0
     - Name: $v
       Entry: 10
       Data: 7
@@ -150,7 +149,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 10
+      Data: 4
     - Name: $v
       Entry: 10
       Data: 8
@@ -162,7 +161,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 15
+      Data: 11
     - Name: $v
       Entry: 10
       Data: 9
@@ -174,7 +173,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 11
+      Data: 8
     - Name: $v
       Entry: 10
       Data: 10
@@ -186,7 +185,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 12
+      Data: 9
     - Name: $v
       Entry: 10
       Data: 11
@@ -198,22 +197,10 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 13
+      Data: 3
     - Name: $v
       Entry: 10
       Data: 12
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 10
-      Data: 13
     - Name: 
       Entry: 8
       Data: 
@@ -225,7 +212,7 @@ MonoBehaviour:
       Data: 
     - Name: <NameItemsDictionary>k__BackingField
       Entry: 7
-      Data: 2|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[GoggleImporter.Runtime.ItemParser.Property.IParsableItem,
+      Data: 2|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[GoggleImporter.Runtime.ItemParser.Item.IParsableItem,
         Runtime]], mscorlib
     - Name: comparer
       Entry: 7
@@ -236,13 +223,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 14
+      Data: 13
     - Name: 
       Entry: 7
       Data: 
     - Name: $k
       Entry: 1
-      Data: Armor 1
+      Data: Armor
     - Name: $v
       Entry: 10
       Data: 0
@@ -254,7 +241,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Armor
+      Data: Boots
     - Name: $v
       Entry: 10
       Data: 1
@@ -266,7 +253,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Boots
+      Data: Bow of Kingslayer
     - Name: $v
       Entry: 10
       Data: 2
@@ -394,21 +381,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Sword
-    - Name: $v
-      Entry: 10
-      Data: 13
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  _lastID: 19

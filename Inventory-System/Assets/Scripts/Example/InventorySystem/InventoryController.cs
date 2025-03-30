@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Example.InventorySystem.Items;
 using Example.StatsSystem.Core;
 using Example.StatsSystem.Level;
@@ -115,26 +116,6 @@ namespace InventorySystem.UI
             _lootOpener.OnLootContainerOpened -= OpenLootContainer;
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                if (_inventoryParent.gameObject.activeSelf)
-                {
-                    _inventoryParent.gameObject.SetActive(false);
-                }
-                else
-                {
-                    _inventoryParent.gameObject.SetActive(true);
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                CloseLastPanel();
-            }
-        }
-
         private void PrepareUI()
         {
             InitializePanel(_equipmentPanel, _equipmentContainer);
@@ -222,6 +203,15 @@ namespace InventorySystem.UI
 
         private void OpenLootContainer(ItemContainer lootContainer)
         {
+            foreach (var openedPanel in _openedPanels)
+            {
+                if (_panelsToContainers[openedPanel] == lootContainer)
+                {
+                    ClosePanel(openedPanel);
+                    return;
+                }
+            }
+            
             var createdPanel = CreatePanel(_lootPanel);
             InitializePanel(createdPanel, lootContainer);
             
@@ -236,15 +226,6 @@ namespace InventorySystem.UI
             lootContainer.Initialize();
             lootContainer.OnItemsUpdated += OnInventoriesUpdated;
 
-            foreach (var initialItem in InitialItems)
-            {
-                if (initialItem.IsEmpty)
-                    continue;
-                
-                lootContainer.AddItem(initialItem);
-                break;
-            }
-            
             createdPanel.DisposeSlots();
             createdPanel.Initialize(lootContainer.Size);
             
@@ -380,7 +361,7 @@ namespace InventorySystem.UI
                     _panelsToContainers[startContainer].RemoveItemsAtIndex(startIndex);
                 }
 
-                _itemTooltip.ShowTooltip(_panelsToContainers[endContainer].GetItem(endIndex));
+                ShowTooltip(endContainer, endIndex);
                 return;
             }
 
@@ -388,7 +369,7 @@ namespace InventorySystem.UI
             {
                 _panelsToContainers[startContainer].SwapItems(startIndex, endIndex);
                 
-                _itemTooltip.ShowTooltip(_panelsToContainers[startContainer].GetItem(endIndex));
+                ShowTooltip(startContainer, endIndex);
             }
             else
             {
@@ -397,14 +378,17 @@ namespace InventorySystem.UI
                 _panelsToContainers[startContainer].SetItem(startIndex, itemFromEndContainer);
                 _panelsToContainers[endContainer].SetItem(endIndex, itemFromStartContainer);
                 
-                _itemTooltip.ShowTooltip(_panelsToContainers[endContainer].GetItem(endIndex));
+                ShowTooltip(endContainer, endIndex);
             }
         }
 
         private void HideTooltip(BaseItemContainerPanel panel, int index) => _itemTooltip.HideTooltip();
 
-        private void ShowTooltip(BaseItemContainerPanel panel, int index) => 
-            _itemTooltip.ShowTooltip(_panelsToContainers[panel].GetItem(index));
+        private void ShowTooltip(BaseItemContainerPanel panel, int index)
+        {
+            var item = _panelsToContainers[panel].GetItem(index);
+            _itemTooltip.ShowTooltip(item, CollectRequirements(item));
+        }
 
         private void ApplyFilter(BaseItemContainerPanel panel, ItemFilter filter)
         {
@@ -443,6 +427,22 @@ namespace InventorySystem.UI
             }
         }
 
+        private string CollectRequirements(InventoryItem item)
+        {
+            var sb = new StringBuilder();
+
+            if (item.Item.TryGetProperty<EquippableProperty>(out var equippableProperty))
+            {
+                if (equippableProperty.Level > 0)
+                {
+                    string color = _levelSystem.CurrentLevel >= equippableProperty.Level ? Constants.AVAILABLE_COLOR : Constants.UNAVAILABLE_COLOR;
+                    sb.Append($"<color={color}>Required level: {equippableProperty.Level}</color>\n");
+                }
+            }
+
+            return sb.ToString();
+        }
+
         private void OnInventoriesUpdated(ItemContainer itemContainer)
         {
             _itemContextMenu.Hide();
@@ -467,17 +467,25 @@ namespace InventorySystem.UI
             }
         }
 
-        private void CloseLastPanel()
+        private void ClosePanel(BaseItemContainerPanel panel)
         {
-            if (_openedPanels.Count == 0)
-                return;
+            panel.OnStartDrag -= OnStartDrag;
+            panel.OnClicked -= OnClicked;
+            panel.OnDoubleClicked -= OnDoubleClicked;
+            panel.OnSwapRequested -= OnSwapRequested;
+            panel.OnItemActionRequested -= OnItemActionRequested;
+            panel.OnItemSearchRequested -= ApplyItemSearch;
+            panel.OnItemTypeRequested -= ApplyTypeFilter;
+            panel.OnShowTooltipRequested -= ShowTooltip;
+            panel.OnHideTooltipRequested -= HideTooltip;
 
-            var lastPanel = _openedPanels[^1];
+            _panelsToContainers[panel].OnItemsUpdated -= OnInventoriesUpdated;
 
-            _actions.RemoveAll(action => action.StartPanel == lastPanel || action.EndPanel == lastPanel);
-
-            lastPanel.Close();
-            _openedPanels.RemoveAt(_openedPanels.Count - 1);
+            _actions.RemoveAll(action => action.StartPanel == panel || action.EndPanel == panel);
+            _panelsToContainers.Remove(panel);
+            _containerPanels.Remove(panel);
+            panel.Close();
+            _openedPanels.Remove(panel);
         }
     }
 }

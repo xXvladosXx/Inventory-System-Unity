@@ -45,7 +45,6 @@ namespace InventorySystem.UI.Panels
             _rectTransform = GetComponent<RectTransform>();
         }
 
-
         public void Initialize(int size)
         {
             _rectTransform = GetComponent<RectTransform>();
@@ -71,6 +70,7 @@ namespace InventorySystem.UI.Panels
 
         public virtual void DisposeSlots()
         {
+            DisposeFilters();
             foreach (var slot in slots)
             {
                 Destroy(slot.gameObject);

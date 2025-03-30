@@ -9,6 +9,7 @@ namespace Example.InventorySystem.Configs
     [Serializable]
     public class ItemParsableData : IItemParsableData
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public bool IsStackable { get; set; }
         public int MaxInStack { get; set; }

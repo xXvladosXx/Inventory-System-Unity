@@ -16,7 +16,6 @@ namespace InventorySystem
     {
         [field: SerializeField] public Dictionary<int, IParsableItem> IDsItemsDictionary { get; private set; } = new Dictionary<int, IParsableItem>();
         [field: SerializeField] public Dictionary<string, IParsableItem> NameItemsDictionary { get; private set; } = new Dictionary<string, IParsableItem>();
-        [SerializeField] private int _lastID = 1;
 
         private int _nextAvailableID = 1;
 
@@ -44,12 +43,8 @@ namespace InventorySystem
 
                     if (item.ID <= 0 || IDsItemsDictionary.ContainsKey(item.ID))
                     {
-                        item.ID = GenerateUniqueID(); 
                         EditorUtility.SetDirty(item);
                     }
-                    
-                    if (item.ID > _lastID)
-                        _lastID = item.ID;
 
                     IDsItemsDictionary[item.ID] = item;
                     Debug.Log($"Item '{item.name}' assigned ID: {item.ID} (Path: {path})");
@@ -61,19 +56,6 @@ namespace InventorySystem
             AssetDatabase.Refresh();
         }
 #endif
-
-        private int GenerateUniqueID()
-        {
-            while (IDsItemsDictionary.ContainsKey(_lastID))
-            {
-                _lastID++;
-            }
-            
-            EditorUtility.SetDirty(this);
-        
-            return _lastID++;
-        }
-        
         public Item FindItemByName(string itemName)
         {
             if (NameItemsDictionary.TryGetValue(itemName, out IParsableItem item))
@@ -84,13 +66,23 @@ namespace InventorySystem
             return null;
         }
         
+        public Item FindItemById(int id)
+        {
+            if (IDsItemsDictionary.TryGetValue(id, out IParsableItem item))
+            {
+                return item as Item;
+            }
+           
+            return null;
+        }
+#if UNITY_EDITOR
         public Item CreateScriptableObjectWithName(string itemName) => CreateAssetWithName<Item>(itemName);
 
         private T CreateAssetWithName<T>(string itemName) where T : ScriptableObject
         {
             T asset = ScriptableObject.CreateInstance<T>();
 
-            string assetPath = $"Assets/Data/InventorySystem/Items/{itemName}.asset";
+            string assetPath = $"Assets/Resources/Data/InventorySystem/Items/{itemName}.asset";
 
             if (AssetDatabase.LoadAssetAtPath<T>(assetPath) != null)
             {
@@ -108,5 +100,6 @@ namespace InventorySystem
 
             return asset;
         }
+#endif
     }
 }

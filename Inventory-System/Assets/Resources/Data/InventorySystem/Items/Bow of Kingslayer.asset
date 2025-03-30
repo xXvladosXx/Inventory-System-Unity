@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 655421f8bd284413ac4e9356df5b8cf8, type: 3}
+  m_Name: Bow of Kingslayer
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: <Properties>k__BackingField
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[GoggleImporter.Runtime.ItemParser.Types.ActionType,
+        Runtime],[System.Collections.Generic.List`1[[GoggleImporter.Runtime.ItemParser.Property.Property,
+        Runtime]], mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.ObjectEqualityComparer`1[[GoggleImporter.Runtime.ItemParser.Types.ActionType,
+        Runtime]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 7
+      Data: 2|InventorySystem.Items.Types.EquippableAction, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: $v
+      Entry: 7
+      Data: 3|System.Collections.Generic.List`1[[GoggleImporter.Runtime.ItemParser.Property.Property,
+        Runtime]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 6
+    - Name: 
+      Entry: 7
+      Data: 4|InventorySystem.Items.Properties.EquippableProperty, Assembly-CSharp
+    - Name: ResetableOnImport
+      Entry: 5
+      Data: true
+    - Name: EquipType
+      Entry: 3
+      Data: 1
+    - Name: Level
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 5|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
+    - Name: ResetableOnImport
+      Entry: 5
+      Data: true
+    - Name: Value
+      Entry: 4
+      Data: 10
+    - Name: StatType
+      Entry: 3
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
+    - Name: ResetableOnImport
+      Entry: 5
+      Data: true
+    - Name: Value
+      Entry: 4
+      Data: 150
+    - Name: StatType
+      Entry: 3
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 7|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
+    - Name: ResetableOnImport
+      Entry: 5
+      Data: true
+    - Name: Value
+      Entry: 4
+      Data: 12
+    - Name: StatType
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 8|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
+    - Name: ResetableOnImport
+      Entry: 5
+      Data: true
+    - Name: Value
+      Entry: 4
+      Data: -4
+    - Name: StatType
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 9|InventorySystem.Items.Properties.ConstantStatProperty, Assembly-CSharp
+    - Name: ResetableOnImport
+      Entry: 5
+      Data: true
+    - Name: Value
+      Entry: 4
+      Data: -20
+    - Name: StatType
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  <ID>k__BackingField: 12
+  <Name>k__BackingField: Bow of Kingslayer
+  <IsStackable>k__BackingField: 0
+  <MaxInStack>k__BackingField: 1
+  <ItemType>k__BackingField: 0
+  <Icon>k__BackingField: {fileID: 21300000, guid: 81eb7b507d1d84949b52ed597a23243c, type: 3}
